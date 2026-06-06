@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Games &amp; Tools — Solo Game Dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Afacad:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/profile-white.png">
+  <style>
+    :root { --red:#e8333a; --red2:#ff4d4d; --transition-speed:0.45s; }
+    [data-theme="dark"]  { --bg:#0a0a0a; --bg2:#111111; --bg3:#161616; --white:#f0ede8; --grey:#777; --grey2:#444; --border:#222; --nav-bg:rgba(10,10,10,0.88); --shadow:rgba(0,0,0,0.6); }
+    [data-theme="light"] { --bg:#f5f2ee; --bg2:#ebe7e1; --bg3:#e0dbd4; --white:#0f0f0f; --grey:#555; --grey2:#aaa; --border:#d0cbc4; --nav-bg:rgba(245,242,238,0.92); --shadow:rgba(0,0,0,0.15); }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--bg); color:var(--white);
+      font-family:'Afacad',sans-serif; overflow-x:hidden; cursor:crosshair;
+      transition:background var(--transition-speed) ease, color var(--transition-speed) ease;
+    }
+
+    ::-webkit-scrollbar { width:3px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:var(--red); }
+
+    /* ── PAGE TRANSITION OVERLAY ── */
+    #transition-overlay {
+      position:fixed; inset:0; z-index:9999;
+      background:var(--red);
+      transform:translateX(100%);
+      pointer-events:none;
+    }
+    #transition-overlay.is-entering {
+      transform:translateX(0);
+      animation:overlayExit 0.42s cubic-bezier(0.76,0,0.24,1) forwards;
+    }
+    @keyframes overlayExit {
+      from { transform:translateX(0); }
+      to   { transform:translateX(100%); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.1rem 3rem;
+      background:var(--nav-bg); backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+      transition:background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+      animation:fadeDown 0.6s 0.1s both;
+    }
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+
+    .nav-logo { display:flex; align-items:center; gap:0.75rem; text-decoration:none; }
+    .nav-logo img { height:32px; width:32px; object-fit:contain; }
+    .nav-logo span { font-family:'Bebas Neue',sans-serif; font-size:1.35rem; letter-spacing:0.12em; color:var(--white); transition:color var(--transition-speed) ease; }
+    .nav-right { display:flex; align-items:center; gap:2rem; }
+    .nav-active {
+      color:var(--white) !important;
+      border-bottom:1px solid var(--red);
+      padding-bottom:2px;
+    }
+    .nav-back {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      color:var(--grey); text-decoration:none;
+      font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase;
+      transition:color 0.2s;
+    }
+    .nav-back:hover { color:var(--red); }
+    .nav-back svg { transition:transform 0.2s; }
+    .nav-back:hover svg { transform:translateX(-3px); }
+    .theme-toggle {
+      display:flex; align-items:center; gap:0.5rem;
+      background:none; border:1px solid var(--border); color:var(--grey); cursor:pointer;
+      padding:0.45rem 0.9rem; font-family:'Afacad',sans-serif; font-size:0.72rem;
+      letter-spacing:0.15em; text-transform:uppercase; transition:all 0.2s;
+    }
+    .theme-toggle:hover { border-color:var(--red); color:var(--red); }
+    .theme-toggle .icon-sun, .theme-toggle .icon-moon { transition:opacity 0.3s, transform 0.3s; }
+    [data-theme="dark"]  .icon-sun  { opacity:1; }
+    [data-theme="dark"]  .icon-moon { opacity:0; position:absolute; }
+    [data-theme="light"] .icon-moon { opacity:1; }
+    [data-theme="light"] .icon-sun  { opacity:0; position:absolute; }
+
+    /* ── PAGE TITLE HEADER ── */
+    .page-title-bar {
+      padding: 7.5rem 3rem 2.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition-speed) ease;
+    }
+    .page-title-bar::before {
+      content:'THE GAMES & TOOLS';
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(14rem,26vw,24rem); line-height:1;
+      color:transparent; -webkit-text-stroke:1px var(--border);
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      white-space:nowrap; pointer-events:none; letter-spacing:-0.04em;
+      opacity:0; animation:bgFadeIn 1.4s 0.4s forwards;
+      transition:-webkit-text-stroke-color var(--transition-speed) ease;
+    }
+    .page-title-eyebrow {
+      font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase;
+      color:var(--red); display:flex; align-items:center; justify-content:center; gap:1rem;
+      margin-bottom:1.2rem; position:relative; z-index:1;
+      opacity:0; animation:fadeUp 0.7s 0.2s forwards;
+    }
+    .page-title-eyebrow::before, .page-title-eyebrow::after {
+      content:''; display:block; width:32px; height:1px; background:var(--red);
+    }
+    .page-title-main {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(4rem, 11vw, 10rem); line-height:0.9; letter-spacing:-0.01em;
+      color:var(--white); position:relative; z-index:1;
+      opacity:0; animation:fadeUp 0.7s 0.32s forwards;
+      transition:color var(--transition-speed) ease;
+    }
+    .page-title-main span { color:var(--red); }
+    .page-title-desc {
+      font-size:1rem; color:var(--grey); max-width:480px; margin:1.5rem auto 0;
+      line-height:1.8; position:relative; z-index:1;
+      opacity:0; animation:fadeUp 0.7s 0.44s forwards;
+      transition:color var(--transition-speed) ease;
+    }
+
+    /* Ticker */
+    .games-ticker {
+      border-top:1px solid var(--border); overflow:hidden; height:36px;
+      display:flex; align-items:center; position:relative; z-index:1;
+      margin-top:2.5rem;
+      transition:border-color var(--transition-speed) ease;
+    }
+    .ticker-track { display:flex; animation:ticker 22s linear infinite; white-space:nowrap; }
+    .ticker-item {
+      display:inline-flex; align-items:center; gap:1.5rem;
+      font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase;
+      color:var(--grey2); padding:0 2.5rem;
+      transition:color var(--transition-speed) ease;
+    }
+    .ticker-dot { width:4px; height:4px; background:var(--red); border-radius:50%; flex-shrink:0; }
+
+    /* ── FEATURED GAMES GRID ── */
+    .featured-label {
+      padding: 4rem 3rem 0;
+      font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase;
+      color:var(--red); display:flex; align-items:center; gap:1rem;
+      opacity:0; animation:fadeUp 0.7s 0.5s forwards;
+    }
+    .featured-label::before { content:''; display:block; width:28px; height:1px; background:var(--red); }
+
+    .featured-title {
+      padding: 1rem 3rem 2.5rem;
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(2.5rem,5vw,4.5rem); letter-spacing:0.02em; color:var(--white);
+      opacity:0; animation:fadeUp 0.7s 0.6s forwards;
+      transition:color var(--transition-speed) ease;
+    }
+
+    .games-grid {
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:2px;
+      background:var(--border);
+      width:100%;
+    }
+
+    .game-card {
+      background:var(--bg);
+      display:flex; flex-direction:column;
+      overflow:hidden; position:relative;
+      opacity:0; transform:translateY(40px);
+      transition:opacity 0.75s ease, transform 0.75s ease, background var(--transition-speed) ease;
+    }
+    .game-card.revealed { opacity:1; transform:translateY(0); }
+    .game-card:hover { background:var(--bg2); }
+
+    /* 16:9 banner — never cropped */
+    .gc-banner {
+      width:100%;
+      aspect-ratio:16/9;
+      overflow:hidden;
+      position:relative;
+      flex-shrink:0;
+      background:var(--bg3);
+    }
+    .gc-banner img {
+      width:100%; height:100%;
+      object-fit:contain;
+      display:block;
+      transition:transform 0.7s ease, filter 0.4s ease;
+      filter:brightness(0.88) saturate(0.88);
+    }
+    .game-card:hover .gc-banner img {
+      transform:scale(1.04);
+      filter:brightness(1) saturate(1.05);
+    }
+
+    /* Red left accent line */
+    .game-card::after {
+      content:''; position:absolute; top:0; left:0;
+      width:3px; height:0; background:var(--red);
+      transition:height 0.55s ease; z-index:5;
+    }
+    .game-card:hover::after { height:100%; }
+
+    .gc-body {
+      padding:2rem 2.2rem 2.2rem;
+      display:flex; flex-direction:column; gap:1rem; flex:1;
+    }
+    .gc-tag {
+      font-size:0.63rem; letter-spacing:0.25em; text-transform:uppercase;
+      color:var(--red); border:1px solid rgba(232,51,58,0.3);
+      display:inline-block; padding:0.15rem 0.5rem; align-self:flex-start;
+    }
+    .gc-name {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(2rem,3.5vw,3.2rem); line-height:0.92; letter-spacing:0.02em;
+      color:var(--white);
+      transition:color var(--transition-speed) ease;
+    }
+    .gc-desc {
+      font-size:1rem; line-height:1.78; color:var(--grey); flex:1;
+      transition:color var(--transition-speed) ease;
+    }
+    .gc-footer { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:auto; padding-top:0.5rem; }
+    .gc-btn {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      padding:0.75rem 1.6rem; background:var(--red); color:#fff;
+      font-family:'Afacad',sans-serif; font-size:0.75rem;
+      letter-spacing:0.15em; text-transform:uppercase; text-decoration:none;
+      transition:all 0.2s;
+    }
+    .gc-btn:hover { background:var(--red2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(232,51,58,0.35); }
+    .gc-status {
+      font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase;
+      padding:0.2rem 0.55rem; background:rgba(232,51,58,0.12); color:var(--red);
+    }
+
+    /* ── MORE GAMES ── */
+    .more-section {
+      padding:5rem 3rem; border-top:1px solid var(--border);
+      transition:border-color var(--transition-speed) ease;
+    }
+    .more-label {
+      font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase;
+      color:var(--red); margin-bottom:0.9rem;
+      display:flex; align-items:center; gap:1rem;
+      opacity:0; transform:translateY(20px);
+      transition:opacity 0.7s, transform 0.7s;
+    }
+    .more-label.revealed { opacity:1; transform:none; }
+    .more-label::before { content:''; display:block; width:28px; height:1px; background:var(--red); }
+    .more-h2 {
+      font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,4.5rem);
+      letter-spacing:0.02em; color:var(--white); margin-bottom:2.5rem;
+      transition:color var(--transition-speed) ease;
+      opacity:0; transform:translateY(20px);
+      transition:opacity 0.7s 0.1s, transform 0.7s 0.1s, color var(--transition-speed) ease;
+    }
+    .more-h2.revealed { opacity:1; transform:none; }
+    .more-games-list { display:flex; flex-wrap:wrap; gap:0.8rem; }
+    .more-game-pill {
+      display:inline-flex; align-items:center; gap:0.6rem;
+      padding:0.65rem 1.2rem; border:1px solid var(--border);
+      color:var(--grey); text-decoration:none; font-size:0.75rem; letter-spacing:0.08em;
+      transition:all 0.2s, border-color var(--transition-speed) ease;
+      position:relative;
+      opacity:0; transform:translateY(14px);
+      animation:none;
+    }
+    .more-game-pill.revealed { opacity:1; transform:none; transition:opacity 0.5s, transform 0.5s, border-color 0.2s, color 0.2s; }
+    .more-game-pill:hover { border-color:var(--red); color:var(--white); }
+    .pill-tooltip {
+      position:absolute; bottom:calc(100% + 10px); left:0; width:220px;
+      background:var(--bg2); border:1px solid var(--border);
+      box-shadow:0 12px 40px rgba(0,0,0,0.4); opacity:0; pointer-events:none;
+      transform:translateY(6px);
+      transition:opacity 0.2s ease, transform 0.2s ease, background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+      z-index:50;
+    }
+    .more-game-pill:hover .pill-tooltip { opacity:1; pointer-events:auto; transform:translateY(0); }
+    .pill-tooltip-img-wrap { width:100%; overflow:hidden; }
+    .pill-tooltip-img-wrap img { width:100%; height:auto; display:block; }
+    .pill-tooltip-body { padding:0.75rem 0.9rem; }
+    .pill-tooltip-title { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:0.05em; color:var(--white); margin-bottom:0.35rem; transition:color var(--transition-speed) ease; }
+    .pill-tooltip-desc { font-size:0.72rem; line-height:1.6; color:var(--grey); transition:color var(--transition-speed) ease; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top:1px solid var(--border); padding:1.4rem 3rem;
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:0.68rem; letter-spacing:0.1em; color:var(--grey2);
+      transition:border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    }
+    footer a { color:var(--grey2); text-decoration:none; transition:color 0.2s; }
+    footer a:hover { color:var(--red); }
+    .back-home {
+      display:inline-flex; align-items:center; gap:0.5rem;
+      color:var(--grey2); text-decoration:none; text-transform:uppercase;
+      font-size:0.68rem; letter-spacing:0.12em; transition:color 0.2s;
+    }
+    .back-home:hover { color:var(--red); }
+    .back-home svg { transition:transform 0.2s; }
+    .back-home:hover svg { transform:translateX(-3px); }
+
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes bgFadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes ticker { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .games-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding:1rem 1.5rem; }
+      .page-title-bar { padding:6rem 1.5rem 2rem; }
+      .page-title-bar::before { display:none; }
+      .featured-label, .featured-title { padding-left:1.5rem; padding-right:1.5rem; }
+      .more-section { padding:3rem 1.5rem; }
+      footer { flex-direction:column; gap:1rem; text-align:center; padding:1.4rem 1.5rem; }
+      .gc-body { padding:1.5rem 1.5rem 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- RED TRANSITION OVERLAY -->
+<div id="transition-overlay"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo transition-link">
+    <img id="nav-logo" src="assets/profile-white.png" alt="SGD"/>
+    <span>Solo Game Dev</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-active" style="font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase;">Games &amp; Tools</span>
+    <a href="index.html" class="nav-back transition-link">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Home
+    </a>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <svg class="icon-sun" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span id="theme-label">Light</span>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE TITLE -->
+<div class="page-title-bar">
+  <div class="page-title-eyebrow">All Games &amp; Tools</div>
+  <h1 class="page-title-main">THE <span>GAMES</span> & TOOLS</h1>
+  <p class="page-title-desc">From retro PSX horror to mind-bending puzzles and desktop tools — every project crafted solo with passion and obsession over detail.</p>
+  <div class="games-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="ticker-dot"></span>The Night Shift</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Spin</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>LaunchPad</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Infinite Breakout</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Totally Fair Pong</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Square</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>More Coming</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>The Night Shift</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Spin</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>LaunchPad</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Infinite Breakout</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Totally Fair Pong</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>Square</span>
+      <span class="ticker-item"><span class="ticker-dot"></span>More Coming</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED SECTION LABEL -->
+<div class="featured-label">Featured Games &amp; Tools</div>
+<div class="featured-title">FEATURED</div>
+
+<!-- GAMES GRID -->
+<div class="games-grid">
+
+  <!-- The Night Shift -->
+  <div class="game-card">
+    <div class="gc-banner">
+      <img src="assets/night-shift.png" alt="The Night Shift"/>
+    </div>
+    <div class="gc-body">
+      <div class="gc-tag">Horror · Survival</div>
+      <h2 class="gc-name">The Night Shift</h2>
+      <p class="gc-desc">A retro PSX-style horror story set during the night shift of a remote gas station. Weird customers, creepy noises, and growing dread await. Can you survive till morning?</p>
+      <div class="gc-footer">
+        <a href="https://sologame-dev.itch.io/the-night-shift" target="_blank" class="gc-btn">
+          View on itch.io
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="gc-status">In Development</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spin -->
+  <div class="game-card">
+    <div class="gc-banner">
+      <img src="assets/spin.png" alt="Spin"/>
+    </div>
+    <div class="gc-body">
+      <div class="gc-tag">Puzzle</div>
+      <h2 class="gc-name">Spin</h2>
+      <p class="gc-desc">You can't control the player — you control the level itself. Spin the world to move your character through clever puzzles. Short, polished, and deeply addictive.</p>
+      <div class="gc-footer">
+        <a href="https://sologame-dev.itch.io/spin" target="_blank" class="gc-btn">
+          Download on itch.io
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="gc-status">Released</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LaunchPad -->
+  <div class="game-card">
+    <div class="gc-banner">
+      <img src="assets/banner.png" alt="LaunchPad"/>
+    </div>
+    <div class="gc-body">
+      <div class="gc-tag">Windows · Desktop App</div>
+      <h2 class="gc-name">LaunchPad</h2>
+      <p class="gc-desc">A sleek desktop launcher built for gamers. Organize and launch all your games from one place with a clean, minimal interface designed for speed and simplicity.</p>
+      <div class="gc-footer">
+        <a href="https://sologame-dev.itch.io/launchpad" target="_blank" class="gc-btn">
+          Download on itch.io
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <span class="gc-status">Released</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MORE GAMES -->
+<div class="more-section">
+  <div class="more-label">Also on itch.io</div>
+  <h2 class="more-h2">MORE GAMES &amp; TOOLS</h2>
+  <div class="more-games-list">
+    <a href="https://sologame-dev.itch.io/infinite-breakout" target="_blank" class="more-game-pill">
+      Infinite Breakout
+      <div class="pill-tooltip">
+        <div class="pill-tooltip-img-wrap"><img src="assets/infinite-breakout.png" alt="Infinite Breakout"/></div>
+        <div class="pill-tooltip-body">
+          <div class="pill-tooltip-title">Infinite Breakout</div>
+          <div class="pill-tooltip-desc">A twist on the classic breakout formula. Break bricks, survive waves — how long can you last?</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://sologame-dev.itch.io/totallyfairpong" target="_blank" class="more-game-pill">
+      Totally Fair Pong
+      <div class="pill-tooltip">
+        <div class="pill-tooltip-img-wrap"><img src="assets/totally-fair-pong.png" alt="Totally Fair Pong"/></div>
+        <div class="pill-tooltip-body">
+          <div class="pill-tooltip-title">Totally Fair Pong</div>
+          <div class="pill-tooltip-desc">It's pong. Totally fair. Nothing suspicious at all. Just a completely normal game of pong.</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://sologame-dev.itch.io/square" target="_blank" class="more-game-pill">
+      Square
+      <div class="pill-tooltip">
+        <div class="pill-tooltip-img-wrap"><img src="assets/square.png" alt="Square"/></div>
+        <div class="pill-tooltip-body">
+          <div class="pill-tooltip-title">Square</div>
+          <div class="pill-tooltip-desc">A minimalist game about a square. Simple concept, surprising depth.</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://sologame-dev.itch.io/" target="_blank" class="more-game-pill" style="border-color:rgba(232,51,58,0.4);color:var(--red)">View all on itch.io →</a>
+  </div>
+</div>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="back-home transition-link">
+    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Home
+  </a>
+  <span>© 2025 Solo Game Dev — All rights reserved</span>
+  <a href="https://sologame-dev.itch.io/" target="_blank">itch.io ↗</a>
+</footer>
+
+
+<script>
+  /* ── RED PAGE TRANSITION ── */
+  const overlay = document.getElementById('transition-overlay');
+
+  function navigateTo(href) {
+    sessionStorage.setItem('page-transition', '1');
+    overlay.style.animation = 'none';
+    overlay.style.transition = 'none';
+    overlay.style.transform = 'translateX(100%)';
+    overlay.getBoundingClientRect();
+    overlay.style.transition = 'transform 0.42s cubic-bezier(0.76,0,0.24,1)';
+    overlay.style.transform = 'translateX(0)';
+    setTimeout(() => { window.location.href = href; }, 430);
+  }
+
+  document.querySelectorAll('.transition-link').forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http')) return;
+      e.preventDefault();
+      navigateTo(href);
+    });
+  });
+
+  // Slide out on page load — only when arriving via a transition link
+  if (sessionStorage.getItem('page-transition')) {
+    sessionStorage.removeItem('page-transition');
+    overlay.classList.add('is-entering');
+  }
+
+  /* ── THEME ── */
+  const label = document.getElementById('theme-label');
+  const navLogo = document.getElementById('nav-logo');
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    label.textContent = isDark ? 'Dark' : 'Light';
+    if (navLogo) navLogo.src = isDark ? 'assets/profile-black.png' : 'assets/profile-white.png';
+  }
+
+  /* ── SCROLL REVEAL ── */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('revealed'), i * 100);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.game-card, .more-label, .more-h2, .more-game-pill').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
