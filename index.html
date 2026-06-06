@@ -1,1322 +1,144 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solo Game Dev</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmed Ouederni</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Afacad:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <style>
-    /* ─── THEME VARIABLES ─── */
-    :root {
-      --red: #e8333a;
-      --red2: #ff4d4d;
-      --transition-speed: 0.45s;
-    }
-
-    [data-theme="dark"] {
-      --bg:       #0a0a0a;
-      --bg2:      #111111;
-      --bg3:      #161616;
-      --white:    #f0ede8;
-      --grey:     #777;
-      --grey2:    #444;
-      --border:   #222;
-      --nav-bg:   rgba(10,10,10,0.88);
-      --shadow:   rgba(0,0,0,0.6);
-    }
-
-    [data-theme="light"] {
-      --bg:       #f5f2ee;
-      --bg2:      #ebe7e1;
-      --bg3:      #e0dbd4;
-      --white:    #0f0f0f;
-      --grey:     #555;
-      --grey2:    #aaa;
-      --border:   #d0cbc4;
-      --nav-bg:   rgba(245,242,238,0.92);
-      --shadow:   rgba(0,0,0,0.15);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Afacad', sans-serif;
-      overflow-x: hidden;
-      cursor: crosshair;
-      transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
-    }
-
-    @keyframes pageIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-
-    /* ─── SCROLL REVEAL ─── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
-    }
-    .reveal.revealed { opacity: 1; transform: translateY(0); }
-
-    /* ─── THEME TOGGLE ─── */
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--grey);
-      cursor: pointer;
-      padding: 0.45rem 0.9rem;
-      font-family: 'Afacad', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: all 0.2s, border-color 0.2s;
-    }
-    .theme-toggle:hover { border-color: var(--red); color: var(--red); }
-
-    .theme-toggle .icon-sun,
-    .theme-toggle .icon-moon { transition: opacity 0.3s, transform 0.3s; }
-    [data-theme="dark"]  .icon-sun  { opacity: 1; transform: rotate(0deg); }
-    [data-theme="dark"]  .icon-moon { opacity: 0; position: absolute; }
-    [data-theme="light"] .icon-moon { opacity: 1; transform: rotate(0deg); }
-    [data-theme="light"] .icon-sun  { opacity: 0; position: absolute; }
-
-
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 3rem;
-      background: var(--nav-bg);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
-    }
-    .nav-logo {
-      display: flex; align-items: center; gap: 0.75rem; text-decoration: none;
-    }
-    .nav-logo img {
-      height: 32px; width: 32px; object-fit: contain;
-      transition: opacity 0.3s ease;
-    }    .nav-logo span {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.35rem; letter-spacing: 0.12em; color: var(--white);
-      transition: color var(--transition-speed) ease;
-    }
-    .nav-right { display: flex; align-items: center; gap: 2rem; }
-    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-    .nav-links a {
-      color: var(--grey); text-decoration: none;
-      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--red); }
-
-    /* ─── HERO ─── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 8rem 3rem 4rem;
-      position: relative; overflow: hidden;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 4rem;
-      align-items: flex-start;
-      width: 100%;
-      position: relative; z-index: 1;
-      padding-top: 2rem;
-    }
-
-    .hero-logo-bg {
-      position: absolute;
-      top: 50%; left: 0;
-      transform: translateY(-50%);
-      width: min(45vw, 500px);
-      pointer-events: none; user-select: none; z-index: 0;
-      animation: fadeIn 1.2s 0.3s forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeIn { from { opacity:0; } to { opacity: 0.07; } }
-
-    .hero-content { position: relative; z-index: 1; }
-
-    .hero-stats {
-      display: flex; gap: 2rem; margin-top: 2.5rem;
-      opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
-    }
-    .stat { text-align: left; }
-
-    .hero-eyebrow {
-      font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 1rem;
-      opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
-    }
-    .hero-eyebrow::before {
-      content: ''; display: block; width: 40px; height: 1px; background: var(--red);
-    }
-
-    h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4.5rem, 13vw, 12rem);
-      line-height: 0.9; letter-spacing: -0.01em; margin-bottom: 2rem;
-      opacity: 0; animation: fadeUp 0.8s 0.25s forwards;
-      color: var(--white); transition: color var(--transition-speed) ease;
-    }
-    h1 span { color: var(--red); }
-
-    .hero-desc {
-      font-size: 1rem; line-height: 1.75; color: var(--grey);
-      max-width: 460px; margin-bottom: 3rem;
-      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
-      transition: color var(--transition-speed) ease;
-    }
-
-    .hero-ctas {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.8s 0.55s forwards;
-    }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      font-family: 'Afacad', sans-serif; font-size: 0.78rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      text-decoration: none; border: none; cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-primary { background: var(--red); color: #fff; }
-    .btn-primary:hover { background: var(--red2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,51,58,0.35); }
-    .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border); transition: all 0.2s, border-color 0.2s, color var(--transition-speed) ease; }
-    .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
-
-    .stat-num {
-      font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; line-height: 1;
-      color: var(--white); transition: color var(--transition-speed) ease;
-    }
-    .stat-label {
-      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--grey); margin-top: 0.2rem; transition: color var(--transition-speed) ease;
-    }
-
-    /* ─── HERO CAROUSEL ─── */
-    .hero-carousel {
-      position: relative; z-index: 1;
-      opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
-      margin-top: 0;
-    }
-
-    .hc-main {
-      position: relative;
-      aspect-ratio: 16/9;
-      min-height: 280px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--bg2);
-      transition: border-color var(--transition-speed) ease;
-      width: 100%;
-    }
-
-    .hc-slide {
-      position: absolute; inset: 0;
-      opacity: 0; transition: opacity 0.45s ease;
-      pointer-events: none;
-    }
-    .hc-slide.active { opacity: 1; pointer-events: auto; }
-    .hc-slide img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.4s ease; }
-    .hc-main:hover .hc-slide.active img { transform: scale(1.05); }
-    .hc-slide-link {
-      position: absolute; inset: 0; z-index: 1;
-      cursor: pointer;
-    }
-    .hc-slide-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .hc-slide-label {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1rem 1.2rem;
-      display: flex; align-items: flex-end; justify-content: space-between;
-    }
-    .hc-slide-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem; letter-spacing: 0.05em; color: #fff;
-    }
-    .hc-slide-tag {
-      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .hc-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 36px; height: 36px;
-      background: rgba(0,0,0,0.5); border: none; color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; z-index: 5; font-size: 1.1rem;
-      transition: background 0.2s;
-    }
-    .hc-arrow:hover { background: var(--red); }
-    .hc-arrow.prev { left: 8px; }
-    .hc-arrow.next { right: 8px; }
-
-    /* Thumbnail strip below */
-    .hc-thumbs {
-      display: flex;
-      gap: 4px;
-      margin-top: 6px;
-    }
-    .hc-thumb {
-      flex: 1;
-      height: 6px;
-      cursor: pointer;
-      background: var(--border);
-      border: none;
-      position: relative;
-      overflow: hidden;
-    }
-    .hc-thumb:hover { background: var(--grey2); }
-    .hc-thumb-progress {
-      position: absolute; left: 0; top: 0; bottom: 0;
-      width: 0%;
-      background: var(--red);
-      transition: none;
-    }
-
-    /* ─── SHARED SECTION ─── */
-    section { padding: 6rem 3rem; transition: background var(--transition-speed) ease; }
-
-    .section-label {
-      font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .section-label::before { content: ''; display: block; width: 28px; height: 1px; background: var(--red); }
-
-    h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      letter-spacing: 0.02em; line-height: 1; margin-bottom: 3rem;
-      color: var(--white); transition: color var(--transition-speed) ease;
-    }
-
-    /* ─── GAMES ─── */
-    #games { border-top: 1px solid var(--border); transition: border-color var(--transition-speed) ease; }
-
-    .games-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      background: var(--border);
-      border: 2px solid var(--border);
-      transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
-    }
-
-    .game-row {
-      display: grid;
-      grid-template-columns: 264px 1fr;
-      position: relative;
-      overflow: hidden;
-      background: var(--bg);
-      transition: background 0.35s;
-    }
-    .game-row:hover { background: var(--bg2); }
-
-    /* Red left accent */
-    .game-row::after {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 3px; height: 0; background: var(--red);
-      transition: height 0.45s ease;
-      z-index: 10;
-    }
-    .game-row:hover::after { height: 100%; }
-
-    /* Text column */
-    .game-row-left {
-      padding: 0.75rem 1.2rem;
-      display: flex; flex-direction: column;
-      justify-content: center; gap: 0.45rem;
-      position: relative; z-index: 2;
-      overflow: hidden;
-    }
-
-    .game-row-tag {
-      font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--red); border: 1px solid rgba(232,51,58,0.3);
-      display: inline-block; padding: 0.1rem 0.35rem;
-      flex-shrink: 0;
-    }
-
-    .game-row-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.03em; line-height: 1;
-      color: var(--white);
-      flex-shrink: 0;
-      transition: color var(--transition-speed) ease;
-    }
-
-    .game-row-desc {
-      font-size: 1rem; color: var(--grey);
-      line-height: 1.5;
-      overflow: hidden;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-      margin-top: 0.35rem;
-      transition: color var(--transition-speed) ease;
-    }
-
-    .game-row-footer { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
-
-    .game-link {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--white); text-decoration: none; transition: color 0.2s;
-    }
-    .game-link:hover { color: var(--red); }
-    .game-link svg { transition: transform 0.2s; }
-    .game-link:hover svg { transform: translateX(4px); }
-
-    .game-status {
-      font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.15rem 0.45rem; background: rgba(232,51,58,0.12); color: var(--red);
-    }
-
-    /* Image panel — 16:9 aspect ratio drives row height */
-    .game-row-right { position: relative; overflow: hidden; aspect-ratio: 16/9; }
-
-    .game-row-img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.65s ease, filter 0.4s ease;
-      filter: brightness(0.88) saturate(0.9);
-    }
-    .game-row:hover .game-row-img {
-      transform: scale(1.05);
-      filter: brightness(1) saturate(1);
-    }
-
-    /* Gradient bleed */
-    .game-row-right::before {
-      content: ''; position: absolute; inset: 0; right: -1px;
-      background: linear-gradient(to left, rgba(10,10,10,0.55) 0%, transparent 22%);
-      z-index: 1; pointer-events: none;
-      transition: background var(--transition-speed) ease;
-    }
-
-    /* More games */
-    .more-games { margin-top: 3rem; border-top: 1px solid var(--border); padding-top: 2.5rem; transition: border-color var(--transition-speed) ease; }
-    .more-games-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--grey); margin-bottom: 1.5rem; }
-    .more-games-list { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-    .more-game-pill {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.65rem 1.2rem; border: 1px solid var(--border);
-      color: var(--grey); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.08em;
-      transition: all 0.2s, border-color var(--transition-speed) ease;
-      position: relative;
-    }
-    .more-game-pill:hover { border-color: var(--red); color: var(--white); }
-
-    /* Hover tooltip card */
-    .pill-tooltip {
-      position: absolute;
-      bottom: calc(100% + 10px);
-      left: 0;
-      width: 220px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition: opacity 0.2s ease, transform 0.2s ease, background var(--transition-speed) ease, border-color var(--transition-speed) ease;
-      z-index: 50;
-    }
-    .more-game-pill:hover .pill-tooltip {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .pill-tooltip-img-wrap { width: 100%; overflow: hidden; }
-    .pill-tooltip-img-wrap img {
-      width: 100%; height: auto; display: block;
-    }
-    .pill-tooltip-body {
-      padding: 0.75rem 0.9rem;
-    }
-    .pill-tooltip-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem; letter-spacing: 0.05em;
-      color: var(--white); margin-bottom: 0.35rem;
-      transition: color var(--transition-speed) ease;
-    }
-    .pill-tooltip-desc {
-      font-size: 0.72rem; line-height: 1.6;
-      color: var(--grey);
-      transition: color var(--transition-speed) ease;
-    }
-
-    /* ─── ABOUT ─── */
-    #about {
-      border-top: 1px solid var(--border);
-      background: var(--bg2);
-      transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
-    }
-    .about-inner {
-      display: grid; grid-template-columns: auto 1fr; gap: 5rem; align-items: start;
-    }
-
-    .about-profile {
-      display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .profile-pic-wrap {
-      position: relative; width: 200px; height: 200px;
-    }
-    .profile-pic-wrap::before, .profile-pic-wrap::after {
-      content: ''; position: absolute; width: 22px; height: 22px;
-    }
-    .profile-pic-wrap::before { top: -3px; right: -3px; border-top: 2px solid var(--red); border-right: 2px solid var(--red); }
-    .profile-pic-wrap::after  { bottom: -3px; left: -3px; border-bottom: 2px solid var(--red); border-left: 2px solid var(--red); }
-
-    .profile-pic {
-      width: 200px; height: 200px;
-      border: 1px solid var(--border);
-      object-fit: contain;
-      display: block;
-      background: var(--bg3);
-      transition: border-color var(--transition-speed) ease;
-    }    .profile-name {
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em;
-      color: var(--white); text-align: center; transition: color var(--transition-speed) ease;
-    }
-    .profile-role {
-      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--grey); transition: color var(--transition-speed) ease;
-    }
-
-    .about-text h2 { margin-bottom: 1.5rem; }
-    .about-text p {
-      font-size: 1.05rem; line-height: 1.85; color: var(--grey); margin-bottom: 1.2rem;
-      transition: color var(--transition-speed) ease;
-    }
-    .about-text p strong { color: var(--white); transition: color var(--transition-speed) ease; }
-
-    /* ─── CONTACT ─── */
-    #contact {
-      border-top: 1px solid var(--border);
-      transition: border-color var(--transition-speed) ease;
-    }
-    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
-
-    .social-links { display: flex; flex-direction: column; gap: 0.75rem; }
-    .social-link {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1rem 1.2rem; border: 1px solid var(--border);
-      color: var(--grey); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.1em;
-      transition: all 0.2s, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
-      position: relative; overflow: hidden;
-    }
-    .social-link::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0;
-      background: rgba(232,51,58,0.07); transition: width 0.3s ease;
-    }
-    .social-link:hover::before { width: 100%; }
-    .social-link:hover { border-color: var(--red); color: var(--white); }
-    .social-icon { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.6; transition: opacity 0.2s; }
-    .social-link:hover .social-icon { opacity: 1; }
-
-    .contact-cta { display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; }
-    .contact-cta h3 {
-      font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.05em; line-height: 1.05;
-      color: var(--white); transition: color var(--transition-speed) ease;
-    }
-    .contact-cta h3 span { color: var(--red); }
-    .contact-cta p { font-size: 0.9rem; color: var(--grey); line-height: 1.8; transition: color var(--transition-speed) ease; }
-
-    .mail-link {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.8rem; letter-spacing: 0.1em; color: var(--white); text-decoration: none;
-      border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;
-      transition: border-color 0.2s, color 0.2s, color var(--transition-speed) ease;
-    }
-    .mail-link:hover { border-color: var(--red); color: var(--red); }
-
-    /* ─── FOOTER ─── */
-    footer {
-      border-top: 1px solid var(--border); padding: 1.2rem 2rem;
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.68rem; letter-spacing: 0.1em; color: var(--grey2);
-      transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease;
-      gap: 1rem;
-    }
-    footer a { color: var(--grey2); text-decoration: none; transition: color 0.2s; }
-    footer a:hover { color: var(--red); }
-    .footer-center { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; flex: 1; }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--red); }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      #hero { padding: 7rem 1.5rem 4rem; }
-      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      section { padding: 4rem 1.5rem; }
-      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
-
-      /* Game rows go single-column on mobile */
-      .game-row { grid-template-columns: 1fr; min-height: auto; }
-      .game-row-right { height: 200px; order: -1; }
-      .game-row-right::before { background: linear-gradient(to bottom, transparent 60%, var(--bg) 100%) !important; }
-      .game-row:hover .game-row-right::before { background: linear-gradient(to bottom, transparent 60%, var(--bg2) 100%) !important; }
-      .game-row-left { padding: 1.8rem 1.5rem; }
-    }
-
-    /* ─── SUDOKU ─── */
-    .sdk-diff-btn {
-      background: none; border: 1px solid var(--border); color: var(--grey);
-      font-family: 'Afacad', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 0.35rem 0.8rem; cursor: pointer;
-      transition: all 0.2s;
-    }
-    .sdk-diff-btn:hover { border-color: var(--red); color: var(--white); }
-    .sdk-diff-active { border-color: var(--red) !important; color: var(--red) !important; }
-
-    .sdk-cell {
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: clamp(0.65rem, 1.6vw, 0.9rem);
-      font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em;
-      cursor: pointer; position: relative;
-      transition: background 0.15s;
-      aspect-ratio: 1;
-    }
-    .sdk-cell.given { color: var(--white); }
-    .sdk-cell.user  { color: var(--red); }
-    .sdk-cell.selected { background: rgba(232,51,58,0.18) !important; }
-    .sdk-cell.highlight { background: rgba(232,51,58,0.06); }
-    .sdk-cell.error { color: #ff6b6b !important; }
-    .sdk-cell:hover:not(.given) { background: rgba(232,51,58,0.1); }
-
-    /* thick borders for 3x3 boxes */
-    .sdk-cell[data-col="2"], .sdk-cell[data-col="5"] { border-right: 2px solid var(--white); }
-    .sdk-cell[data-row="2"], .sdk-cell[data-row="5"] { border-bottom: 2px solid var(--white); }
-
-    .sdk-num-btn {
-      background: var(--bg3); border: 1px solid var(--border); color: var(--white);
-      font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em;
-      padding: 0.35rem; cursor: pointer; transition: all 0.15s;
-    }
-    .sdk-num-btn:hover { background: var(--red); border-color: var(--red); color: #fff; }
-
-    /* ─── SUDOKU FAB ─── */
-    #sudoku-fab {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--grey);
-      font-family: 'Afacad', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s, background var(--transition-speed) ease;
-      flex-shrink: 0;
-    }
-    #sudoku-fab:hover {
-      border-color: var(--red);
-      color: var(--white);
-    }
-
-    /* ─── MED AVATAR ─── */
-    #med-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      overflow: visible;
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
-      flex-shrink: 0;
-      position: relative;
-    }
-    #med-avatar img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      border: 2px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    [data-theme="dark"] #med-avatar:hover img {
-      border-color: #fff;
-      box-shadow: 0 0 0 2px #fff, 0 4px 20px var(--shadow);
-    }
-    [data-theme="light"] #med-avatar:hover img {
-      border-color: #000;
-      box-shadow: 0 0 0 2px #000, 0 4px 20px var(--shadow);
-    }
-    #med-tooltip {
-      position: absolute;
-      top: 50%;
-      left: calc(100% + 10px);
-      transform: translateY(-50%) translateX(-4px);
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--grey);
-      font-family: 'Afacad', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      padding: 0.35rem 0.75rem;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 16px var(--shadow);
-    }
-    #med-avatar:hover #med-tooltip {
-      opacity: 1;
-      transform: translateY(-50%) translateX(0);
-    }
-  </style>
-  <link rel="icon" type="image/png" href="assets/profile-white.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- RED TRANSITION OVERLAY -->
-<style>
-  #transition-overlay { position:fixed;inset:0;z-index:9999;background:#e8333a;transform:translateX(100%);pointer-events:none; }
-  #transition-overlay.is-entering { transform:translateX(0); animation:overlayExit 0.42s cubic-bezier(0.76,0,0.24,1) forwards; }
-  @keyframes overlayExit { from{transform:translateX(0)} to{transform:translateX(100%)} }
-</style>
-<div id="transition-overlay"></div>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <img id="nav-logo" src="assets/profile-white.png" alt="SGD" />
-    <span>Solo Game Dev</span>
-  </a>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="games.html" class="transition-link">Games &amp; Tools</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Connect</a></li>
-      <li><a href="https://sologame-dev.itch.io/" target="_blank">itch.io ↗</a></li>
-    </ul>
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-      <!-- Sun icon (shown in dark mode = "switch to light") -->
-      <svg class="icon-sun" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-      </svg>
-      <!-- Moon icon (shown in light mode = "switch to dark") -->
-      <svg class="icon-moon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-      <span id="theme-label">Light</span>
-    </button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-
-
-  <div class="hero-inner">
-
-    <!-- Left: title + desc -->
-    <div class="hero-content">
-      <div class="hero-eyebrow">Independent Game Studio</div>
-      <h1>SOLO<br><span>GAME</span><br>DEV</h1>
-      <p class="hero-desc">
-        Creating unique gaming experiences – from PSX horror games to challenging puzzles.
-      </p>
-      <div class="hero-ctas">
-        <a href="games.html" class="btn btn-primary transition-link">View Games &amp; Tools</a>
-        <a href="https://sologame-dev.itch.io/" target="_blank" class="btn btn-outline">itch.io ↗</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Games</div></div>
-        <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Ideas</div></div>
-        <div class="stat"><div class="stat-num">1</div><div class="stat-label">Dev</div></div>
-      </div>
-    </div>
-
-    <!-- Right: mini Steam-style carousel -->
-    <div class="hero-carousel">
-      <div class="hc-main">
-
-        <div class="hc-slide active"><a class="hc-slide-link" href="https://sologame-dev.itch.io/launchpad" target="_blank"></a><img src="assets/banner.png" alt="LaunchPad" /><div class="hc-slide-overlay"></div><div class="hc-slide-label"><div><div class="hc-slide-title">LaunchPad</div><div class="hc-slide-tag">Windows · Desktop App</div></div><a href="https://sologame-dev.itch.io/launchpad" target="_blank" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.65rem;position:relative;z-index:2;">Download ↗</a></div></div>
-
-        <div class="hc-slide"><a class="hc-slide-link" href="https://sologame-dev.itch.io/the-night-shift" target="_blank"></a><img src="assets/night-shift.png" alt="The Night Shift" /><div class="hc-slide-overlay"></div><div class="hc-slide-label"><div><div class="hc-slide-title">The Night Shift</div><div class="hc-slide-tag">Horror · Survival</div></div><a href="https://sologame-dev.itch.io/the-night-shift" target="_blank" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.65rem;position:relative;z-index:2;">Play ↗</a></div></div>
-
-        <div class="hc-slide"><a class="hc-slide-link" href="https://sologame-dev.itch.io/spin" target="_blank"></a><img src="assets/spin.png" alt="Spin" /><div class="hc-slide-overlay"></div><div class="hc-slide-label"><div><div class="hc-slide-title">Spin</div><div class="hc-slide-tag">Puzzle</div></div><a href="https://sologame-dev.itch.io/spin" target="_blank" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.65rem;position:relative;z-index:2;">Play ↗</a></div></div>
-
-        
-
-        <button class="hc-arrow prev" onclick="hcMove(-1)">&#8249;</button>
-        <button class="hc-arrow next" onclick="hcMove(1)">&#8250;</button>
-      </div>
-
-      <!-- Thumbnail strip -->
-      <div class="hc-thumbs" id="hcThumbs"></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- GAMES TEASER -->
-<section id="games" class="reveal">
-  <div class="section-label">Featured Games &amp; Tools</div>
-  <h2>THE GAMES &amp; TOOLS</h2>
-  <div style="border:1px solid var(--border); padding:3.5rem; transition:border-color var(--transition-speed) ease;">
-    <p style="font-size:1.05rem; line-height:1.85; color:var(--grey); margin-bottom:2rem; max-width:560px; transition:color var(--transition-speed) ease;">
-      From retro PSX horror to mind-bending puzzles and desktop tools — every project built solo with dedication. Five games and tools and counting, each one a different world.
-    </p>
-    <a href="games.html" class="btn btn-primary transition-link" style="display:inline-flex; align-items:center; gap:0.5rem;">
-      View All Games &amp; Tools
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="reveal">
-  <div class="about-inner">
-    <div class="about-profile">
-      <div class="profile-pic-wrap">
-        <img 
-          class="profile-pic" id="profile-logo"
-          src="assets/profile-white.png"
-          alt="Solo Game Dev Logo"
-        />
-      </div>
-      <div class="profile-name">Solo Game Dev</div>
-      <div class="profile-role">Indie Developer</div>
-    </div>
-    <div class="about-text">
-      <div class="section-label">The Studio</div>
-      <h2>ABOUT</h2>
-      <p>
-        <strong>Solo Game Dev</strong> is a small independent studio that focuses on developing
-        unique gaming experiences and useful tools in every genre.
-      </p>
-      <p>
-        From dark <strong>PSX-style horror</strong> to quick <strong>puzzle games</strong> and handy <strong>desktop tools</strong> —
-        Each project gets developed with dedication and passion.
-        Only creativity and love for games.
-      </p>
-      <p>
-        Got ideas, feedback, or a business offer? <strong>All messages are welcome.</strong>
-      </p>
-      <br>
-      <a href="#contact" class="btn btn-outline">Get In Touch</a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="reveal">
-  <div class="contact-inner">
+  <header>
+    <img class="avatar" src="assets/logo.jpg" alt="Ahmed Ouederni">
     <div>
-      <div class="section-label">Find Me</div>
-      <h2>CONNECT</h2>
-      <div class="social-links">
-        <a href="https://sologame-dev.itch.io/" target="_blank" class="social-link">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.104 2.41 2.434 2.41h.024c1.33 0 2.434-1.102 2.434-2.41 0 1.308 1.035 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.283 24 5.98V4.95c-.02-.622-2.08-2.99-3.13-3.612C19.61.68 12.08.718 12 .72c-.08-.002-7.61-.04-8.87.618zM12 9.535c-.638 0-1.24-.138-1.807-.376-.396.777-.65 2.02-.65 3.197 0 .05.002.1.002.15-1.756.155-3.83.6-5.53 1.2-.326 1.075-.527 2.23-.527 3.456 0 .63.04 1.248.113 1.855C4.036 20.67 7.86 23.28 12 23.28c4.14 0 7.965-2.61 8.4-4.264.072-.607.113-1.226.113-1.855 0-1.226-.2-2.38-.527-3.456-1.7-.6-3.774-1.045-5.53-1.2 0-.05.002-.1.002-.15 0-1.177-.254-2.42-.65-3.197A4.272 4.272 0 0112 9.535zm-3.5 4.87h7l-.43 4.433-3.07.896-3.07-.896L8.5 14.405z"/></svg>
-          itch.io — sologame-dev.itch.io
-        </a>
-        <a href="https://x.com/SoloGameDev11" target="_blank" class="social-link">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          X (Twitter) — @SoloGameDev11
-        </a>
-        <a href="https://www.reddit.com/user/SoloGameDev11/" target="_blank" class="social-link">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
-          Reddit — u/SoloGameDev11
-        </a>
-        <a href="mailto:sologamedev11@gmail.com" class="social-link">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          Email — sologamedev11@gmail.com
-        </a>
-        <a href="https://www.youtube.com/channel/UCLY1DV14FPiaDiqh5a6lEAg" target="_blank" class="social-link">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          YouTube — Solo Game Dev
-        </a>
-        <a href="https://ko-fi.com/sologamedev11" target="_blank" class="social-link">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
-          Ko-fi — sologamedev11
-        </a>
-      </div>
+      <h1>Ahmed Ouederni</h1>
+      <p>Software & Game Developer &mdash; Tunisia</p>
     </div>
-    <div class="contact-cta">
-      <h3>GOT AN<br><span>IDEA?</span></h3>
-      <p>Feedback, collabs, or just want to say hi — all messages are read. Don't hesitate.</p>
-      <a href="mailto:sologamedev11@gmail.com" class="mail-link">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        sologamedev11@gmail.com
+  </header>
+
+  <!-- ABOUT -->
+  <div class="section">
+    <p class="section-title">About</p>
+    <p class="about-text">
+      Independent developer. I make games under
+      <a href="https://solo-game-dev.github.io/" target="_blank" rel="noopener">Solo Game Dev</a>,
+      build desktop tools, write backend code, and dig into hardware.
+      Not locked into one field &mdash; if something interests me, I build it.
+    </p>
+  </div>
+
+  <!-- WORK -->
+  <div class="section">
+    <p class="section-title">Work</p>
+    <div class="work-grid">
+
+      <a class="work-card work-card--studio" href="https://solo-game-dev.github.io/" target="_blank" rel="noopener">
+        <img class="studio-logo" src="https://solo-game-dev.github.io/assets/profile-white.png" alt="Solo Game Dev">
+        <div class="work-card__body">
+          <span class="work-card__name">Solo Game Dev</span>
+          <span class="work-card__tag">Studio</span>
+        </div>
+        <span class="work-card__arrow">&rarr;</span>
       </a>
+
+      <a class="work-card" href="https://sologame-dev.itch.io/launchpad" target="_blank" rel="noopener">
+        <img class="work-card__banner" src="assets/icon.png" alt="LaunchPad">
+        <div class="work-card__body">
+          <span class="work-card__name">LaunchPad</span>
+          <span class="work-card__tag">Desktop app &mdash; Windows</span>
+        </div>
+        <span class="work-card__arrow">&rarr;</span>
+      </a>
+
+      <a class="work-card work-card--more" href="https://sologame-dev.itch.io/" target="_blank" rel="noopener">
+        <div class="work-card__body">
+          <span class="work-card__name">6 games &amp; counting</span>
+          <span class="work-card__tag">View all on itch.io</span>
+        </div>
+        <span class="work-card__arrow">&rarr;</span>
+      </a>
+
     </div>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <!-- Med avatar — left -->
-  <a id="med-avatar" href="https://med74.rf.gd/" target="_blank" rel="noopener">
-    <img src="assets/med74.png" alt="med" />
-    <div id="med-tooltip">Special thanks to med74</div>
-  </a>
+  <!-- SKILLS -->
+  <div class="section">
+    <p class="section-title">Skills</p>
+    <div class="skills-grid">
 
-  <!-- Center: copyright + links -->
-  <div class="footer-center">
-    <span>© 2025 Solo Game Dev — All rights reserved</span>
-    <span>
-      <a href="https://sologame-dev.itch.io/" target="_blank">itch.io</a> ·
-      <a href="https://x.com/SoloGameDev11" target="_blank">X</a> ·
-      <a href="https://www.reddit.com/user/SoloGameDev11/" target="_blank">Reddit</a> ·
-      <a href="https://www.youtube.com/channel/UCLY1DV14FPiaDiqh5a6lEAg" target="_blank">YouTube</a> ·
-      <a href="https://ko-fi.com/sologamedev11" target="_blank">Ko-fi</a>
-    </span>
-  </div>
-
-  <!-- Sudoku button — right -->
-  <button id="sudoku-fab" onclick="openSudoku()">Play Sudoku</button>
-</footer>
-
-<!-- SUDOKU MODAL -->
-<div id="sudoku-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
-  <div id="sudoku-box" style="background:var(--bg2);border:1px solid var(--border);padding:1.2rem;max-width:380px;width:95vw;position:relative;font-family:'Afacad',sans-serif;max-height:95vh;overflow-y:auto;">
-
-    <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.8rem;">
-      <div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;color:var(--white);">SUDOKU</div>
-        <div style="font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);">Infinite — <span id="sdk-difficulty">Medium</span></div>
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg" alt="">
+        <span class="skill-name">Godot</span>
       </div>
-      <div style="display:flex;gap:0.6rem;align-items:center;">
-        <div style="font-size:0.9rem;color:var(--grey);letter-spacing:0.05em;" id="sdk-timer">00:00</div>
-        <button onclick="newSudokuGame()" style="background:var(--red);border:none;color:#fff;font-family:'Afacad',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.4rem 0.9rem;cursor:pointer;">New</button>
-        <button onclick="closeSudoku()" style="background:none;border:1px solid var(--border);color:var(--grey);font-family:'Afacad',sans-serif;font-size:0.7rem;padding:0.4rem 0.7rem;cursor:pointer;line-height:1;">✕</button>
+
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="">
+        <span class="skill-name">C#</span>
       </div>
-    </div>
 
-    <!-- Difficulty -->
-    <div style="display:flex;gap:0.4rem;margin-bottom:0.7rem;">
-      <button onclick="setSdkDiff('easy')"   id="sdk-easy"   class="sdk-diff-btn">Easy</button>
-      <button onclick="setSdkDiff('medium')" id="sdk-medium" class="sdk-diff-btn sdk-diff-active">Medium</button>
-      <button onclick="setSdkDiff('hard')"   id="sdk-hard"   class="sdk-diff-btn">Hard</button>
-    </div>
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg" alt="">
+        <span class="skill-name">Electron</span>
+      </div>
 
-    <!-- Grid -->
-    <div id="sdk-grid" style="display:grid;grid-template-columns:repeat(9,1fr);border:2px solid var(--white);width:100%;aspect-ratio:1;"></div>
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="">
+        <span class="skill-name">Node.js</span>
+      </div>
 
-    <!-- Number pad -->
-    <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:3px;margin-top:0.5rem;">
-      <button onclick="sdkInput(1)" class="sdk-num-btn">1</button>
-      <button onclick="sdkInput(2)" class="sdk-num-btn">2</button>
-      <button onclick="sdkInput(3)" class="sdk-num-btn">3</button>
-      <button onclick="sdkInput(4)" class="sdk-num-btn">4</button>
-      <button onclick="sdkInput(5)" class="sdk-num-btn">5</button>
-      <button onclick="sdkInput(6)" class="sdk-num-btn">6</button>
-      <button onclick="sdkInput(7)" class="sdk-num-btn">7</button>
-      <button onclick="sdkInput(8)" class="sdk-num-btn">8</button>
-      <button onclick="sdkInput(9)" class="sdk-num-btn">9</button>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:3px;">
-      <button onclick="sdkInput(0)" class="sdk-num-btn" style="font-size:0.7rem;letter-spacing:0.1em;">ERASE</button>
-      <button onclick="sdkHint()" class="sdk-num-btn" style="font-size:0.7rem;letter-spacing:0.1em;">HINT</button>
-    </div>
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="">
+        <span class="skill-name">JavaScript</span>
+      </div>
 
-    <!-- Win overlay inside modal -->
-    <div id="sdk-win" style="display:none;position:absolute;inset:0;background:rgba(10,10,10,0.92);backdrop-filter:blur(4px);flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;z-index:10;text-align:center;padding:2rem;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:0.1em;color:var(--red);">YOU WIN!</div>
-      <div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:#aaa;">Solved in <span id="sdk-win-time" style="color:var(--white);"></span></div>
-      <div id="sdk-countdown" style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.15em;color:var(--grey);margin-top:0.5rem;">New game in 3...</div>
-      <button onclick="cancelCountdownAndNew()" style="margin-top:0.5rem;background:var(--red);border:none;color:#fff;font-family:'Afacad',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.6rem 1.4rem;cursor:pointer;">Play Now</button>
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="">
+        <span class="skill-name">React</span>
+      </div>
+
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="">
+        <span class="skill-name">HTML</span>
+      </div>
+
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="">
+        <span class="skill-name">CSS</span>
+      </div>
+
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="">
+        <span class="skill-name">Python</span>
+      </div>
+
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="">
+        <span class="skill-name">PHP</span>
+      </div>
+
+      <div class="skill-item">
+        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="">
+        <span class="skill-name">MySQL</span>
+      </div>
+
     </div>
   </div>
-</div>
 
-<script>
-  /* ── RED PAGE TRANSITION ── */
-  const _overlay = document.getElementById('transition-overlay');
+  <!-- CONTACT -->
+  <div class="section">
+    <p class="section-title">Contact</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:ahmednaserwederni@gmail.com">Email</a>
+      <a class="contact-link" href="https://github.com/Ahmed-Ouederni" target="_blank" rel="noopener">GitHub</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/ahmed-ouederni-915944414/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="contact-link" href="https://sologame-dev.itch.io/" target="_blank" rel="noopener">itch.io</a>
+    </div>
+  </div>
 
-  function navigateTo(href) {
-    sessionStorage.setItem('page-transition', '1');
-    _overlay.style.animation = 'none';
-    _overlay.style.transition = 'none';
-    _overlay.style.transform = 'translateX(100%)';
-    _overlay.getBoundingClientRect();
-    _overlay.style.transition = 'transform 0.42s cubic-bezier(0.76,0,0.24,1)';
-    _overlay.style.transform = 'translateX(0)';
-    setTimeout(() => { window.location.href = href; }, 430);
-  }
+  <footer>Ahmed Ouederni &mdash; Tunisia</footer>
 
-  document.querySelectorAll('.transition-link').forEach(link => {
-    link.addEventListener('click', e => {
-      const href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || href.startsWith('http')) return;
-      e.preventDefault();
-      navigateTo(href);
-    });
-  });
-
-  // Slide out on page load — only when arriving via a transition link
-  if (sessionStorage.getItem('page-transition')) {
-    sessionStorage.removeItem('page-transition');
-    _overlay.classList.add('is-entering');
-  }
-
-  /* ── SCROLL REVEAL ── */
-  const _revealObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('revealed'), i * 80);
-        _revealObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => _revealObs.observe(el));
-
-  /* ─── HERO CAROUSEL ─── */
-  const hcGames = [
-    { cover: 'assets/banner.png',      title: 'LaunchPad',       tag: 'Windows · Desktop App' },
-    { cover: 'assets/night-shift.png', title: 'The Night Shift', tag: 'Horror · Survival' },
-    { cover: 'assets/spin.png',        title: 'Spin',            tag: 'Puzzle'            },
-    
-  ];
-
-  let hcCurrent = 0;
-  let hcHovered = false;
-
-  // RAF-based progress bar
-  const HC_DURATION = 4000; // ms per slide
-  let hcProgress = 0;       // 0–1
-  let hcLastTime = null;
-  let hcRafId = null;
-
-  function hcTick(ts) {
-    if (!hcLastTime) hcLastTime = ts;
-    if (!hcHovered) {
-      const delta = ts - hcLastTime;
-      hcProgress += delta / HC_DURATION;
-      if (hcProgress >= 1) {
-        hcProgress = 0;
-        hcLastTime = ts;
-        hcGoTo(hcCurrent + 1);
-        hcRafId = requestAnimationFrame(hcTick);
-        return;
-      }
-      hcSetBarWidth(hcProgress);
-    }
-    hcLastTime = ts;
-    hcRafId = requestAnimationFrame(hcTick);
-  }
-
-  function hcSetBarWidth(p) {
-    const thumbs = document.querySelectorAll('.hc-thumb');
-    const bar = thumbs[hcCurrent] && thumbs[hcCurrent].querySelector('.hc-thumb-progress');
-    if (bar) bar.style.width = (p * 100) + '%';
-  }
-
-  function buildThumbs() {
-    const wrap = document.getElementById('hcThumbs');
-    hcGames.forEach((g, i) => {
-      const t = document.createElement('div');
-      t.className = 'hc-thumb' + (i === 0 ? ' active' : '');
-      t.onclick = () => hcGoTo(i);
-      t.innerHTML = `<div class="hc-thumb-progress"></div>`;
-      wrap.appendChild(t);
-    });
-  }
-
-  function hcGoTo(index) {
-    const slides = document.querySelectorAll('.hc-slide');
-    const thumbs = document.querySelectorAll('.hc-thumb');
-
-    // Reset old bar to full (completed) or empty
-    const oldBar = thumbs[hcCurrent] && thumbs[hcCurrent].querySelector('.hc-thumb-progress');
-    if (oldBar) oldBar.style.width = '0%';
-    slides[hcCurrent].classList.remove('active');
-    thumbs[hcCurrent].classList.remove('active');
-
-    hcCurrent = (index + hcGames.length) % hcGames.length;
-
-    slides[hcCurrent].classList.add('active');
-    thumbs[hcCurrent].classList.add('active');
-
-    // Reset progress for new slide
-    hcProgress = 0;
-    hcLastTime = null;
-    hcSetBarWidth(0);
-  }
-
-  function hcMove(dir) { hcGoTo(hcCurrent + dir); }
-
-  buildThumbs();
-
-  const hcMainEl = document.querySelector('.hc-main');
-
-  hcMainEl.addEventListener('mouseenter', () => {
-    hcHovered = true;
-  });
-  hcMainEl.addEventListener('mouseleave', () => {
-    hcHovered = false;
-    hcLastTime = null; // reset delta so no jump on resume
-  });
-
-  hcRafId = requestAnimationFrame(hcTick);
-
-  /* ─── THEME TOGGLE ─── */
-  const label = document.getElementById('theme-label');
-  const logoMap = {
-    'nav-logo':     { dark: 'assets/profile-white.png', light: 'assets/profile-black.png' },
-    'profile-logo': { dark: 'assets/profile-white.png', light: 'assets/profile-black.png' },
-  };
-
-  function toggleTheme() {
-    const html = document.documentElement;
-    const isDark = html.getAttribute('data-theme') === 'dark';
-    const newTheme = isDark ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    label.textContent = isDark ? 'Dark' : 'Light';
-    Object.entries(logoMap).forEach(([id, srcs]) => {
-      const el = document.getElementById(id);
-      if (el) el.src = srcs[newTheme];
-    });
-  }
-
-  /* ─── SUDOKU ─── */
-  let sdkSolution = [], sdkPuzzle = [], sdkBoard = [], sdkSelected = null;
-  let sdkDiff = 'medium', sdkTimerInterval, sdkSeconds = 0, sdkSolved = false;
-  let sdkCountdownTimer = null;
-  const sdkRemove = { easy: 36, medium: 46, hard: 54 };
-
-  function openSudoku() {
-    const modal = document.getElementById('sudoku-modal');
-    modal.style.display = 'flex';
-    if (!sdkBoard.length) newSudokuGame();
-  }
-  function closeSudoku() {
-    document.getElementById('sudoku-modal').style.display = 'none';
-  }
-  function isSudokuOpen() {
-    const modal = document.getElementById('sudoku-modal');
-    return modal.style.display === 'flex';
-  }
-  document.getElementById('sudoku-modal').addEventListener('click', e => {
-    if (e.target === document.getElementById('sudoku-modal')) closeSudoku();
-  });
-
-  function setSdkDiff(d) {
-    sdkDiff = d;
-    document.querySelectorAll('.sdk-diff-btn').forEach(b => b.classList.remove('sdk-diff-active'));
-    document.getElementById('sdk-' + d).classList.add('sdk-diff-active');
-    document.getElementById('sdk-difficulty').textContent = d.charAt(0).toUpperCase() + d.slice(1);
-    newSudokuGame();
-  }
-
-  function newSudokuGame() {
-    clearInterval(sdkTimerInterval);
-    clearInterval(sdkCountdownTimer);
-    sdkSeconds = 0; sdkSolved = false;
-    document.getElementById('sdk-win').style.display = 'none';
-    document.getElementById('sdk-timer').textContent = '00:00';
-    sdkSolution = generateSolution();
-    sdkPuzzle = makePuzzle(sdkSolution, sdkRemove[sdkDiff]);
-    sdkBoard = sdkPuzzle.map(r => [...r]);
-    sdkSelected = null;
-    renderGrid();
-    sdkTimerInterval = setInterval(() => {
-      if (!sdkSolved) {
-        sdkSeconds++;
-        const m = String(Math.floor(sdkSeconds/60)).padStart(2,'0');
-        const s = String(sdkSeconds%60).padStart(2,'0');
-        document.getElementById('sdk-timer').textContent = m+':'+s;
-      }
-    }, 1000);
-  }
-
-  function renderGrid() {
-    const grid = document.getElementById('sdk-grid');
-    grid.innerHTML = '';
-    for (let r = 0; r < 9; r++) {
-      for (let c = 0; c < 9; c++) {
-        const cell = document.createElement('div');
-        cell.className = 'sdk-cell';
-        cell.dataset.row = r; cell.dataset.col = c;
-        const val = sdkBoard[r][c];
-        if (sdkPuzzle[r][c] !== 0) {
-          cell.classList.add('given');
-          cell.textContent = sdkPuzzle[r][c];
-        } else if (val !== 0) {
-          cell.classList.add(val === sdkSolution[r][c] ? 'user' : 'error');
-          cell.textContent = val;
-        }
-        cell.addEventListener('click', () => selectCell(r, c));
-        grid.appendChild(cell);
-      }
-    }
-    if (sdkSelected) highlightCells(sdkSelected[0], sdkSelected[1]);
-  }
-
-  function selectCell(r, c) {
-    sdkSelected = [r, c];
-    highlightCells(r, c);
-  }
-
-  function highlightCells(r, c) {
-    document.querySelectorAll('.sdk-cell').forEach(cell => {
-      cell.classList.remove('selected', 'highlight');
-      const cr = +cell.dataset.row, cc = +cell.dataset.col;
-      const sameBox = Math.floor(cr/3)===Math.floor(r/3) && Math.floor(cc/3)===Math.floor(c/3);
-      if (cr === r && cc === c) cell.classList.add('selected');
-      else if (cr === r || cc === c || sameBox) cell.classList.add('highlight');
-    });
-  }
-
-  function sdkInput(num) {
-    if (!sdkSelected || sdkSolved) return;
-    const [r, c] = sdkSelected;
-    if (sdkPuzzle[r][c] !== 0) return;
-    sdkBoard[r][c] = num;
-    renderGrid();
-    if (num !== 0 && isSolved()) {
-      sdkSolved = true;
-      clearInterval(sdkTimerInterval);
-      const m = String(Math.floor(sdkSeconds/60)).padStart(2,'0');
-      const s = String(sdkSeconds%60).padStart(2,'0');
-      showWin(m + ':' + s);
-    }
-  }
-
-  function showWin(timeStr) {
-    const win = document.getElementById('sdk-win');
-    win.style.display = 'flex';
-    document.getElementById('sdk-win-time').textContent = timeStr;
-    let count = 3;
-    document.getElementById('sdk-countdown').textContent = `New game in ${count}...`;
-    sdkCountdownTimer = setInterval(() => {
-      count--;
-      if (count <= 0) {
-        clearInterval(sdkCountdownTimer);
-        win.style.display = 'none';
-        newSudokuGame();
-      } else {
-        document.getElementById('sdk-countdown').textContent = `New game in ${count}...`;
-      }
-    }, 1000);
-  }
-
-  function cancelCountdownAndNew() {
-    clearInterval(sdkCountdownTimer);
-    document.getElementById('sdk-win').style.display = 'none';
-    newSudokuGame();
-  }
-
-  function sdkHint() {
-    if (!sdkSelected || sdkSolved) return;
-    const [r, c] = sdkSelected;
-    if (sdkPuzzle[r][c] !== 0) return;
-    sdkBoard[r][c] = sdkSolution[r][c];
-    renderGrid();
-  }
-
-  function isSolved() {
-    for (let r = 0; r < 9; r++)
-      for (let c = 0; c < 9; c++)
-        if (sdkBoard[r][c] !== sdkSolution[r][c]) return false;
-    return true;
-  }
-
-  document.addEventListener('keydown', e => {
-    if (!isSudokuOpen()) return;
-    if (e.key >= '1' && e.key <= '9') sdkInput(+e.key);
-    if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '0') sdkInput(0);
-    if (e.key === 'Escape') closeSudoku();
-    if (sdkSelected) {
-      const [r, c] = sdkSelected;
-      if (e.key === 'ArrowUp'    && r > 0) selectCell(r-1, c);
-      if (e.key === 'ArrowDown'  && r < 8) selectCell(r+1, c);
-      if (e.key === 'ArrowLeft'  && c > 0) selectCell(r, c-1);
-      if (e.key === 'ArrowRight' && c < 8) selectCell(r, c+1);
-    }
-  });
-
-  function generateSolution() {
-    const board = Array.from({length:9}, () => Array(9).fill(0));
-    solveSudoku(board);
-    return board;
-  }
-  function solveSudoku(board) {
-    for (let r = 0; r < 9; r++) {
-      for (let c = 0; c < 9; c++) {
-        if (board[r][c] === 0) {
-          const nums = shuffle([1,2,3,4,5,6,7,8,9]);
-          for (const n of nums) {
-            if (isValid(board, r, c, n)) {
-              board[r][c] = n;
-              if (solveSudoku(board)) return true;
-              board[r][c] = 0;
-            }
-          }
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-  function makePuzzle(solution, remove) {
-    const puzzle = solution.map(r => [...r]);
-    const cells = shuffle([...Array(81).keys()]);
-    let removed = 0;
-    for (const idx of cells) {
-      if (removed >= remove) break;
-      const r = Math.floor(idx/9), c = idx%9;
-      puzzle[r][c] = 0;
-      removed++;
-    }
-    return puzzle;
-  }
-  function isValid(board, row, col, num) {
-    for (let i = 0; i < 9; i++) {
-      if (board[row][i] === num) return false;
-      if (board[i][col] === num) return false;
-      const br = 3*Math.floor(row/3)+Math.floor(i/3);
-      const bc = 3*Math.floor(col/3)+i%3;
-      if (board[br][bc] === num) return false;
-    }
-    return true;
-  }
-  function shuffle(arr) {
-    for (let i = arr.length-1; i > 0; i--) {
-      const j = Math.floor(Math.random()*(i+1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-</script>
 </body>
 </html>
