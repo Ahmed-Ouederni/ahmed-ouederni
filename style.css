@@ -235,3 +235,35 @@ footer {
   .skills-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
   .work-card__banner { width: 44px; height: 30px; }
 }
+
+/* CHESS BUTTON */
+.chess-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 400;
+  transition: background 0.15s;
+}
+
+.chess-btn:hover { background: #121d30; }
+
+.chess-btn__icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.chess-btn__arrow {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--text3);
+  transition: color 0.15s;
+}
+
+.chess-btn:hover .chess-btn__arrow { color: var(--text2); }
