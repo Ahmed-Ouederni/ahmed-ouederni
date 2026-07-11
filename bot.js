@@ -1,14 +1,13 @@
 window.ChessBot = {
 
   name: "Ahmed's Bot",
-  avatarEmoji: "🤖",
 
   lines: {
     onGameStart:      ["I've been waiting.", "Let's see what you've got.", "Don't hold back."],
     onBotMove:        ["Think carefully.", "Interesting position.", "Your move.", "Take your time.", "Hmm."],
     onBotCaptures:    ["Mine now.", "Thank you for that.", "I'll take that.", "Did you mean to do that?"],
     onPlayerCaptures: ["Enjoy it while it lasts.", "Well played.", "I let you have that.", "Noted."],
-    onBotCheck:       ["Check.", "Watch your king.", "Careful now.", "Check — pay attention."],
+    onBotCheck:       ["Check.", "Watch your king.", "Careful now.", "Pay attention."],
     onPlayerCheck:    ["Hmm.", "Nice move.", "You found it.", "Alright, alright."],
     onBotWin:         ["Checkmate. Good game.", "Better luck next time.", "I enjoyed that.", "Come back when you're ready."],
     onPlayerWin:      ["Well played. You earned it.", "I underestimated you.", "Rematch?", "You got me."],
@@ -46,7 +45,7 @@ window.ChessBot = {
       if (h.isInCheck(res.board, h.opp(turn))) score += 5;
 
       // Avoid moving into capture (basic — check if destination is attacked)
-      if (h.isInCheck(res.board, turn)) score -= 50; // don't leave king in check (should be filtered already but safety net)
+      if (h.isInCheck(res.board, turn)) score -= 50;
 
       // Small random tiebreaker so it doesn't feel robotic
       score += Math.random() * 0.5;

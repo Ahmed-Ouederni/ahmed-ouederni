@@ -3,162 +3,298 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ahmed Ouederni — Software & Game Developer. 7 games shipped. Building tools, engines, and experiences from Tunisia.">
   <title>Ahmed Ouederni</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="assets/logo.jpg">
+  <link rel="icon" type="image/png" href="assets/image.png">
+
+  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.1.0/files/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- 20 db font (retro terminal display) -->
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/20-db">
+
+  <!-- Phosphor Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/dist/phosphor-icons.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Theme init — dark-only -->
+  <script>document.documentElement.setAttribute('data-theme','dark');</script>
 </head>
 <body>
 
-  <header>
-    <img class="avatar" src="assets/logo.jpg" alt="Ahmed Ouederni">
-    <div>
-      <h1>Ahmed Ouederni</h1>
-      <p>Software & Game Developer &mdash; Tunisia</p>
-    </div>
-  </header>
-
-  <!-- ABOUT -->
-  <div class="section">
-    <p class="section-title">About</p>
-    <p class="about-text">
-      Independent developer. I make games under
-      <a href="https://solo-game-dev.github.io/" target="_blank" rel="noopener">Solo Game Dev</a>,
-      build desktop tools, write backend code, and dig into hardware.
-      Not locked into one field &mdash; if something interests me, I build it.
-    </p>
-  </div>
-
-  <!-- WORK -->
-  <div class="section">
-    <p class="section-title">Work</p>
-    <div class="work-grid">
-
-      <a class="work-card work-card--studio" href="https://solo-game-dev.github.io/" target="_blank" rel="noopener">
-        <img class="studio-logo" src="https://solo-game-dev.github.io/assets/profile-white.png" alt="Solo Game Dev">
-        <div class="work-card__body">
-          <span class="work-card__name">Solo Game Dev</span>
-          <span class="work-card__tag">Studio</span>
-        </div>
-        <span class="work-card__arrow">&rarr;</span>
-      </a>
-
-      <a class="work-card" href="https://ahmed-ouederni.github.io/ClosedAI/" target="_blank" rel="noopener">
-        <img class="work-card__banner" src="assets/closedai-icon.png" alt="ClosedAI">
-        <div class="work-card__body">
-          <span class="work-card__name">ClosedAI</span>
-          <span class="work-card__tag">Desktop app &mdash; Windows</span>
-        </div>
-        <span class="work-card__arrow">&rarr;</span>
-      </a>
-
-      <a class="work-card" href="https://sologame-dev.itch.io/launchpad" target="_blank" rel="noopener">
-        <img class="work-card__banner" src="assets/icon.png" alt="LaunchPad">
-        <div class="work-card__body">
-          <span class="work-card__name">LaunchPad</span>
-          <span class="work-card__tag">Desktop app &mdash; Windows</span>
-        </div>
-        <span class="work-card__arrow">&rarr;</span>
-      </a>
-
-      <a class="work-card work-card--more" href="https://sologame-dev.itch.io/" target="_blank" rel="noopener">
-        <div class="work-card__body">
-          <span class="work-card__name">6 games &amp; counting</span>
-          <span class="work-card__tag">View all on itch.io</span>
-        </div>
-        <span class="work-card__arrow">&rarr;</span>
-      </a>
-
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CRT BOOT ANIMATION — Terminal window
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="crt-boot" id="crt-boot" aria-hidden="true">
+    <div class="crt-boot__terminal">
+      <div class="crt-boot__bar">
+        <span class="crt-boot__dot crt-boot__dot--red"></span>
+        <span class="crt-boot__dot crt-boot__dot--yellow"></span>
+        <span class="crt-boot__dot crt-boot__dot--green"></span>
+        <span class="crt-boot__label">boot — zsh</span>
+      </div>
+      <div class="crt-boot__screen">
+        <div class="crt-boot__line" data-boot="0"><span class="crt-boot__prompt">$</span> init 3</div>
+        <div class="crt-boot__line" data-boot="1"><span class="crt-boot__prompt">$</span> modprobe i915</div>
+        <div class="crt-boot__line" data-boot="2"><span class="crt-boot__prompt">$</span> startx</div>
+        <div class="crt-boot__line" data-boot="3"><span class="crt-boot__prompt">$</span> xfce4-session</div>
+        <div class="crt-boot__line" data-boot="4"><span class="crt-boot__prompt">$</span> echo "Welcome."</div>
+        <div class="crt-boot__line" data-boot="5">Welcome.</div>
+        <div class="crt-boot__cursor">_</div>
+      </div>
     </div>
   </div>
 
-  <!-- SKILLS -->
-  <div class="section">
-    <p class="section-title">Skills</p>
-    <div class="skills-grid">
+  <!-- Skip boot animation if coming back from chess -->
+  <script>
+    (function(){
+      var boot = document.getElementById('crt-boot');
+      if (!boot) return;
+      try {
+        if (sessionStorage.getItem('visited') === '1') {
+          boot.style.display = 'none';
+        }
+      } catch(e) {}
+    })();
+  </script>
+</head>
+  <main id="main">
+    <!-- ═══════════════════════════════════════════════════════════════════
+         HERO
+         ═══════════════════════════════════════════════════════════════════ -->
+    <header class="hero" id="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-avatar-wrap">
+            <img src="assets/image.png" alt="" class="hero-avatar" width="64" height="64" loading="eager">
+          </div>
+          <p class="hero-eyebrow" aria-hidden="true">~/developer</p>
+          <h1 class="hero-title">Ahmed Ouederni</h1>
+          <p class="hero-subtitle">
+            Software engineer, game developer, and builder of things that run on hardware.
+            <span class="hero-highlight">7 games shipped</span>, an offline AI desktop app, and a growing toolkit.
+          </p>
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-primary" data-reveal>View Projects</a>
+            <a href="#contact" class="btn btn-ghost" data-reveal>Contact</a>
+          </div>
+        </div>
 
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg" alt="">
-        <span class="skill-name">Godot</span>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="desk-scene">
+            <div class="desk-surface">
+              <div class="desk-monitor">
+                <div class="desk-monitor__bar">
+                  <div class="desk-monitor__bar-left">
+                    <span class="desk-monitor__dot desk-monitor__dot--red"></span>
+                    <span class="desk-monitor__dot desk-monitor__dot--yellow"></span>
+                    <span class="desk-monitor__dot desk-monitor__dot--green"></span>
+                  </div>
+                  <span class="desk-monitor__bar-right">~/workspace</span>
+                </div>
+                <div class="desk-monitor__screen">
+                  <div class="desk-monitor__line"><span class="dir">~/dev/godot</span></div>
+                  <div class="desk-monitor__line" style="margin-top:0.25rem;"><span class="prompt">$</span> <span class="text">ls projects/</span></div>
+                  <div class="desk-monitor__line"><span class="text">closedai/      7-games/     launchpad/</span></div>
+                  <div class="desk-monitor__line"><span class="text">chess-bot/     godot-5yrs/  web/</span></div>
+                  <div class="desk-monitor__line" style="margin-top:0.25rem;">
+                    <span class="prompt">$</span> <span class="text">./build --release</span>
+                    <span class="desk-monitor__cursor"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="">
-        <span class="skill-name">C#</span>
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="hero-scroll-indicator__line"></div>
       </div>
+    </header>
 
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg" alt="">
-        <span class="skill-name">Electron</span>
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ABOUT
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="section-header">
+        <span class="section-number" aria-hidden="true">01</span>
+        <h2 id="about-title" class="section-title" data-reveal>About</h2>
       </div>
-
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="">
-        <span class="skill-name">Node.js</span>
+      <div class="about-content" data-reveal>
+        <p class="about-text">
+          I am <strong>Ahmed Ouederni</strong> — a software and game developer from Tunisia. I make games under
+          <a href="https://solo-game-dev.github.io/" target="_blank" rel="noopener" class="link">Solo Game Dev</a>,
+          build desktop tools with Electron, write backend systems in Node.js and PHP, and tinker with hardware
+          when something catches my interest.
+        </p>
+        <p class="about-text">
+          I graduated secondary school ranking <strong>top 70 nationally</strong>. I am currently studying at
+          university, working toward my goal of becoming a professional engineer. I have been building with
+          Godot for over <strong>5 years</strong>, and I work across Unity, C#, Electron, React, and Python
+          — whatever the project demands.
+        </p>
+        <p class="about-text">
+          Not locked into one stack. If something interests me, I learn it and I ship it.
+          <a href="https://sologame-dev.itch.io/" target="_blank" rel="noopener" class="link">7 games</a>
+          and counting.
+        </p>
       </div>
+    </section>
 
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="">
-        <span class="skill-name">JavaScript</span>
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PROJECTS
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div class="section-header">
+        <span class="section-number" aria-hidden="true">02</span>
+        <h2 id="projects-title" class="section-title" data-reveal>Projects</h2>
       </div>
-
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="">
-        <span class="skill-name">React</span>
+      <div class="projects-grid" id="projects-grid" role="list" data-reveal-container>
+        <!-- Static fallback — JS module rendering overrides this when served via HTTP -->
+        <a href="https://ahmed-ouederni.github.io/ClosedAI/" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
+          <div class="project-card__body">
+            <span class="project-card__title">ClosedAI</span>
+            <span class="project-card__description">A fully offline AI desktop app that runs Llama, Mistral, DeepSeek, and other LLMs locally. Zero telemetry, no API keys, no cloud dependency. Built with Electron and Ollama.</span>
+          </div>
+        </a>
+        <a href="https://sologame-dev.itch.io/launchpad" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
+          <div class="project-card__body">
+            <span class="project-card__title">LaunchPad</span>
+            <span class="project-card__description">A fast, minimal game launcher for Windows. Organizes all your games in one place with a clean, intuitive interface. Built for speed — no bloat, no ads, no AI.</span>
+          </div>
+        </a>
+        <a href="https://solo-game-dev.github.io/" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
+          <div class="project-card__body">
+            <span class="project-card__title">Solo Game Dev</span>
+            <span class="project-card__description">My independent game studio. I design, code, and ship games solo — 7 titles published on itch.io. Built with Godot and Unity, spanning arcade, puzzle, and action genres.</span>
+          </div>
+        </a>
+        <a href="https://sologame-dev.itch.io/" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
+          <div class="project-card__body">
+            <span class="project-card__title">All Games on itch.io</span>
+            <span class="project-card__description">Browse my full catalog of 7 games across multiple genres. Each one built from scratch, solo.</span>
+          </div>
+        </a>
       </div>
+    </section>
 
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="">
-        <span class="skill-name">HTML</span>
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SKILLS
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="section-header">
+        <span class="section-number" aria-hidden="true">03</span>
+        <h2 id="skills-title" class="section-title" data-reveal>Skills</h2>
       </div>
-
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="">
-        <span class="skill-name">CSS</span>
+      <div class="skills-container" id="skills-container" data-reveal-container>
+        <!-- Static fallback — JS module rendering overrides this when served via HTTP -->
+        <div class="skill-category">
+          <span class="skill-category__label">Game Engines</span>
+          <div class="skill-boxes">
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg" alt="" width="28" height="28"><span class="skill-box__name">Godot</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" alt="" width="28" height="28"><span class="skill-box__name">Unity</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="" width="28" height="28"><span class="skill-box__name">C#</span></div>
+          </div>
+        </div>
+        <div class="skill-category">
+          <span class="skill-category__label">Desktop & Backend</span>
+          <div class="skill-boxes">
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg" alt="" width="28" height="28"><span class="skill-box__name">Electron</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="" width="28" height="28"><span class="skill-box__name">Node.js</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" width="28" height="28"><span class="skill-box__name">Python</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="" width="28" height="28"><span class="skill-box__name">PHP</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="" width="28" height="28"><span class="skill-box__name">MySQL</span></div>
+          </div>
+        </div>
+        <div class="skill-category">
+          <span class="skill-category__label">Web & Frontend</span>
+          <div class="skill-boxes">
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" width="28" height="28"><span class="skill-box__name">JavaScript</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="" width="28" height="28"><span class="skill-box__name">React</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" width="28" height="28"><span class="skill-box__name">HTML</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" width="28" height="28"><span class="skill-box__name">CSS</span></div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="">
-        <span class="skill-name">Python</span>
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CONTACT
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="section-header">
+        <span class="section-number" aria-hidden="true">04</span>
+        <h2 id="contact-title" class="section-title" data-reveal>Contact</h2>
       </div>
-
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="">
-        <span class="skill-name">PHP</span>
+      <div class="contact-links" id="contact-links" role="list" data-reveal-container>
+        <!-- Static fallback — JS module rendering overrides this when served via HTTP -->
+        <div class="contact-terminal">
+          <div class="contact-terminal__head">
+            <span class="contact-terminal__dot contact-terminal__dot--red"></span>
+            <span class="contact-terminal__dot contact-terminal__dot--yellow"></span>
+            <span class="contact-terminal__dot contact-terminal__dot--green"></span>
+            <span class="contact-terminal__title">contact — bash</span>
+          </div>
+          <div class="contact-terminal__body">
+            <div class="contact-terminal__line">
+              <span class="contact-terminal__prompt">$</span>
+              <span class="contact-terminal__cmd">mail</span>
+              <a href="mailto:ahmednasrouederni@gmail.com" class="contact-terminal__output">ahmednasrouederni@gmail.com</a>
+            </div>
+            <div class="contact-terminal__line">
+              <span class="contact-terminal__prompt">$</span>
+              <span class="contact-terminal__cmd">git remote -v</span>
+            </div>
+            <div class="contact-terminal__line">
+              <span class="contact-terminal__prefix">origin&emsp;</span>
+              <a href="https://github.com/Ahmed-Ouederni" target="_blank" rel="noopener noreferrer" class="contact-terminal__output">github.com/Ahmed-Ouederni</a>
+            </div>
+            <div class="contact-terminal__line" style="margin-top:0.5rem;">
+              <span class="contact-terminal__prompt">$</span>
+              <span class="contact-terminal__cursor">_</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="skill-item">
-        <img class="skill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="">
-        <span class="skill-name">MySQL</span>
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CHESS CTA
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="chess" class="chess-section" aria-labelledby="chess-title">
+      <div class="chess-card" id="chess-card" data-reveal>
+        <div class="chess-card-content">
+          <div class="chess-icon" aria-hidden="true">♞</div>
+          <div>
+            <h3 id="chess-title" class="chess-card-title">Challenge the Bot</h3>
+            <p class="chess-card-desc">A custom chess bot built from scratch. Think you can beat it?</p>
+          </div>
+        </div>
+        <a href="chess.html" class="btn btn-primary" aria-label="Play chess against my bot" onclick="sessionStorage.setItem('visited','1')">
+          Play Chess
+          <i class="ph ph-arrow-right" aria-hidden="true"></i>
+        </a>
       </div>
+    </section>
+  </main>
 
-    </div>
-  </div>
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <p>Ahmed Ouederni · Tunisia</p>
+  </footer>
 
-  <!-- CONTACT -->
-  <div class="section">
-    <p class="section-title">Contact</p>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:ahmednaserwederni@gmail.com">Email</a>
-      <a class="contact-link" href="https://github.com/Ahmed-Ouederni" target="_blank" rel="noopener">GitHub</a>
-      <a class="contact-link" href="https://www.linkedin.com/in/ahmed-ouederni-915944414/" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="contact-link" href="https://sologame-dev.itch.io/" target="_blank" rel="noopener">itch.io</a>
-    </div>
-  </div>
+  <!-- Data Modules -->
+  <script type="module" src="data/projects.js"></script>
+  <script type="module" src="data/skills.js"></script>
 
-  <!-- CHESS -->
-  <div class="section">
-    <p class="section-title">Challenge</p>
-    <a class="chess-btn" href="chess.html">
-      <span class="chess-btn__icon">&#9822;</span>
-      Play chess against me
-      <span class="chess-btn__arrow">&rarr;</span>
-    </a>
-  </div>
 
-  <footer>Ahmed Ouederni &mdash; Tunisia</footer>
-
+  <!-- App JS -->
+  <script type="module" src="app.js"></script>
 </body>
 </html>
