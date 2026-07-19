@@ -20,7 +20,7 @@ export const projects = [
     id: 'safecheck',
     title: 'SafeCheck',
     description: 'A lightweight link safety checker — paste any URL and get an instant risk analysis. Built with a clean, no-nonsense interface.',
-    href: 'SafeCheck/index.html',
+    href: 'SafeCheck/',
     external: false,
   },
   {
