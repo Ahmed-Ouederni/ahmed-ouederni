@@ -17,11 +17,11 @@ export const projects = [
     external: true,
   },
   {
-    id: 'solo-game-dev',
-    title: 'Solo Game Dev',
-    description: 'My independent game studio. I design, code, and ship games solo — 7 titles published on itch.io. Built with Godot and Unity, spanning arcade, puzzle, and action genres.',
-    href: 'https://solo-game-dev.github.io/',
-    external: true,
+    id: 'safecheck',
+    title: 'SafeCheck',
+    description: 'A lightweight link safety checker — paste any URL and get an instant risk analysis. Built with a clean, no-nonsense interface.',
+    href: 'SafeCheck/index.html',
+    external: false,
   },
   {
     id: 'games-itchio',
