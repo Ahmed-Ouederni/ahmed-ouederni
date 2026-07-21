@@ -19,8 +19,15 @@ export const projects = [
   {
     id: 'safecheck',
     title: 'SafeCheck',
-    description: 'A lightweight link safety checker — paste any URL and get an instant risk analysis. Built with a clean, no-nonsense interface.',
+    description: 'A lightweight link safety checker - paste any URL and get an instant risk analysis. Built with a clean, no-nonsense interface.',
     href: 'SafeCheck/',
+    external: false,
+  },
+  {
+    id: 'qrc',
+    title: 'QR Code Generator',
+    description: 'Transform any link or text into a scannable QR code instantly.',
+    href: 'QR Code Generator/',
     external: false,
   },
   {
