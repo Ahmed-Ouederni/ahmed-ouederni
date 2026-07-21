@@ -27,7 +27,7 @@ export const projects = [
     id: 'qrc',
     title: 'QR Code Generator',
     description: 'Transform any link or text into a scannable QR code instantly.',
-    href: 'QR Code Generator/',
+    href: 'QR-Code-Generator/',
     external: false,
   },
   {
