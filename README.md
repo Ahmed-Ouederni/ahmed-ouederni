@@ -20,7 +20,7 @@ Godot has been his main tool for over 5 years, but he's not tied to one stack. U
 **Chess Bot** : A custom chess engine built from scratch, playable right in the browser.
 → [ahmed-ouederni.is-a.dev/chess.html](https://ahmed-ouederni.is-a.dev/chess.html)
 
-**7 Games on itch.io** — His full catalog, spanning multiple genres, each one built solo from the ground up.
+**7 Games on itch.io** : My full catalog, spanning multiple genres, each one built solo from the ground up.
 → [sologame-dev.itch.io](https://sologame-dev.itch.io/)
 
 ---
