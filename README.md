@@ -1,6 +1,6 @@
 # Ahmed Ouederni
 
-Software and game developer based in Tunisia. Currently at university, working toward becoming a professional engineer — but the real education has been building things: 7 games shipped solo, a desktop AI app, a chess bot, and whatever else catches his interest along the way.
+Software and game developer based in Tunisia. Currently at university, working toward becoming a professional engineer, but the real education has been building things: a lot of games shipped solo, a desktop AI app, a chess bot, and whatever else catches his interest along the way.
 
 Godot has been his main tool for over 5 years, but he's not tied to one stack. Unity and C# for games, Electron for desktop tools, Node.js and PHP on the backend, React and plain JS on the front end. If a project calls for something new, he picks it up and ships with it. Graduated secondary school ranked top 70 nationally.
 
