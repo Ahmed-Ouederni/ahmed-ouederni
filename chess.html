@@ -9,19 +9,19 @@
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-  <!-- 20 db font (retro terminal display) -->
+  
   <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/20-db">
 
-  <!-- Phosphor Icons -->
+  
   <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/dist/phosphor-icons.min.js"></script>
 
-  <!-- Design System CSS -->
+  
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Theme init — dark-only -->
+  
   <script>document.documentElement.setAttribute('data-theme','dark');</script>
 
-  <!-- Chess styles -->
+  
   <style>
     body {
       max-width: 960px;
@@ -32,7 +32,7 @@
       flex-direction: column;
     }
 
-    /* ── Theme Toggle ── */
+    
     .theme-toggle {
       position: fixed;
       top: 1.25rem;
@@ -62,7 +62,7 @@
       transform: scale(0.92);
     }
 
-    /* ── Header ── */
+    
     .chess-header {
       display: flex;
       align-items: center;
@@ -99,7 +99,7 @@
 
 
 
-    /* ── Color pick ── */
+    
     .color-pick-section {
       margin-bottom: 2rem;
     }
@@ -162,7 +162,7 @@
       border: 1px solid var(--border-strong);
     }
 
-    /* ── Game layout ── */
+    
     .chess-layout {
       display: grid;
       grid-template-columns: 480px 1fr;
@@ -171,7 +171,7 @@
       flex: 1;
     }
 
-    /* ── Board ── */
+    
     #chess-board {
       display: grid;
       grid-template-columns: repeat(8, 1fr);
@@ -238,7 +238,7 @@
       color: var(--ink-muted);
     }
 
-    /* ── Sidebar ── */
+    
     .chess-sidebar {
       display: flex;
       flex-direction: column;
@@ -246,7 +246,7 @@
       min-width: 0;
     }
 
-    /* ── Bot/player card ── */
+    
     .bot-card {
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -380,7 +380,7 @@
       transform: scale(0.95);
     }
 
-    /* ── Promotion modal ── */
+    
     #promo-modal {
       display: none;
       position: fixed;
@@ -432,7 +432,7 @@
       background: var(--bg-elevated);
     }
 
-    /* ── Footer ── */    .chess-footer {
+        .chess-footer {
       margin-top: 2.5rem;
       padding: 1.5rem 0 2.5rem;
       border-top: 1px solid var(--border);
@@ -444,12 +444,12 @@
 
 
 
-    /* ── Reduced motion ── */
+    
     @media (prefers-reduced-motion: reduce) {
       .sq { transition: none; }
     }
 
-    /* ── Responsive ── */
+    
     @media (max-width: 860px) {
       .chess-layout { grid-template-columns: 1fr; }
       #chess-board { width: 100%; height: auto; aspect-ratio: 1; }
@@ -464,7 +464,7 @@
     }
   </style>
 
-  <!-- Bot file -->
+  
   <script src="bot.js"></script>
 </head>
 <body>
@@ -525,9 +525,7 @@
 
 
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       CHESS ENGINE
-       ═══════════════════════════════════════════════════════════════════════ -->
+  
   <script>
     const FILES = ['a','b','c','d','e','f','g','h'];
     const GLYPHS = {

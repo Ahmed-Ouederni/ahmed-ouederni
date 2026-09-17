@@ -1,21 +1,14 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   Ahmed Ouederni — Portfolio JavaScript
-   Data rendering, scroll reveals
-   ═══════════════════════════════════════════════════════════════════════════ */
+
 
 import { projects } from './data/projects.js';
 import { skillCategories, iconMap, iconBaseUrl } from './data/skills.js';
 import { contactLinks } from './data/contact.js';
 
-/* ───────────────────────────────────────────────────────────────────────────
-   1. THEME — dark-only per IDENTITY.md
-   ─────────────────────────────────────────────────────────────────────────── */
+
 document.documentElement.setAttribute('data-theme', 'dark');
 localStorage.setItem('theme', 'dark');
 
-/* ───────────────────────────────────────────────────────────────────────────
-   2. RENDER PROJECTS
-   ─────────────────────────────────────────────────────────────────────────── */
+
 const projectsGrid = document.getElementById('projects-grid');
 
 function renderProjects() {
@@ -34,9 +27,7 @@ function renderProjects() {
   }).join('');
 }
 
-/* ───────────────────────────────────────────────────────────────────────────
-   3. RENDER SKILLS
-   ─────────────────────────────────────────────────────────────────────────── */
+
 const skillsContainer = document.getElementById('skills-container');
 
 function renderSkills() {
@@ -45,10 +36,10 @@ function renderSkills() {
   skillsContainer.innerHTML = skillCategories.map((cat) => {
     const skillsHtml = cat.skills.map((skill) => {
       const iconSlug = iconMap[skill.icon];
-      const iconUrl = iconSlug ? `${iconBaseUrl}/${iconSlug}` : null;
+      const iconUrl = iconSlug  `${iconBaseUrl}/${iconSlug}` : null;
       return `
         <div class="skill-box">
-          ${iconUrl ? `<img class="skill-box__icon" src="${iconUrl}" alt="" loading="lazy" width="28" height="28">` : ''}
+          ${iconUrl  `<img class="skill-box__icon" src="${iconUrl}" alt="" loading="lazy" width="28" height="28">` : ''}
           <span class="skill-box__name">${skill.name}</span>
         </div>
       `;
@@ -63,9 +54,7 @@ function renderSkills() {
   }).join('');
 }
 
-/* ───────────────────────────────────────────────────────────────────────────
-   4. RENDER CONTACT (terminal-style, data-driven)
-   ─────────────────────────────────────────────────────────────────────────── */
+
 const contactContainer = document.getElementById('contact-links');
 
 function renderContact() {
@@ -116,9 +105,7 @@ function renderContact() {
   `;
 }
 
-/* ───────────────────────────────────────────────────────────────────────────
-   5. SCROLL REVEAL
-   ─────────────────────────────────────────────────────────────────────────── */
+
 function setupScrollReveal() {
   const revealElements = document.querySelectorAll('[data-reveal], [data-reveal-container] > *');
 
@@ -146,9 +133,7 @@ function setupScrollReveal() {
   revealElements.forEach((el) => observer.observe(el));
 }
 
-/* ───────────────────────────────────────────────────────────────────────────
-   6. INIT
-   ─────────────────────────────────────────────────────────────────────────── */
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderSkills();

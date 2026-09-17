@@ -1,5 +1,5 @@
-// Project data — single source of truth
-// Each project links to its live page with a brief description
+
+
 
 export const projects = [
   {

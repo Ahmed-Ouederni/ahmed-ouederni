@@ -9,28 +9,26 @@
   <meta property="og:site_name" content="Ahmed Ouederni">
   <link rel="icon" type="image/png" href="assets/image.png">
 
-  <!-- Preload fonts -->
+  
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.1.0/files/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- 20 db font (retro terminal display) -->
+  
   <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/20-db">
 
-  <!-- Phosphor Icons -->
+  
   <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/dist/phosphor-icons.min.js"></script>
 
-  <!-- Styles -->
+  
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Theme init - dark-only -->
+  
   <script>document.documentElement.setAttribute('data-theme','dark');</script>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       CRT BOOT ANIMATION - Terminal window
-       ═══════════════════════════════════════════════════════════════════ -->
+  
   <div class="crt-boot" id="crt-boot" aria-hidden="true">
     <div class="crt-boot__terminal">
       <div class="crt-boot__bar">
@@ -51,7 +49,7 @@
     </div>
   </div>
 
-  <!-- Skip boot animation if coming back from chess -->
+  
   <script>
     (function(){
       var boot = document.getElementById('crt-boot');
@@ -65,9 +63,7 @@
   </script>
 </head>
   <main id="main">
-    <!-- ═══════════════════════════════════════════════════════════════════
-         HERO
-         ═══════════════════════════════════════════════════════════════════ -->
+    
     <header class="hero" id="hero">
       <div class="hero-grid">
         <div class="hero-content">
@@ -119,9 +115,7 @@
       </div>
     </header>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-         ABOUT
-         ═══════════════════════════════════════════════════════════════════ -->
+    
     <section id="about" class="section" aria-labelledby="about-title">
       <div class="section-header">
         <span class="section-number" aria-hidden="true">01</span>
@@ -147,16 +141,14 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-         PROJECTS
-         ═══════════════════════════════════════════════════════════════════ -->
+    
     <section id="projects" class="section" aria-labelledby="projects-title">
       <div class="section-header">
         <span class="section-number" aria-hidden="true">02</span>
         <h2 id="projects-title" class="section-title" data-reveal>Projects</h2>
       </div>
       <div class="projects-grid" id="projects-grid" role="list" data-reveal-container>
-        <!-- Static fallback - JS module rendering overrides this when served via HTTP -->
+        
         <a href="https://ahmed-ouederni.github.io/ClosedAI/" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
           <div class="project-card__body">
             <span class="project-card__title">ClosedAI</span>
@@ -190,16 +182,14 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-         SKILLS
-         ═══════════════════════════════════════════════════════════════════ -->
+    
     <section id="skills" class="section" aria-labelledby="skills-title">
       <div class="section-header">
         <span class="section-number" aria-hidden="true">03</span>
         <h2 id="skills-title" class="section-title" data-reveal>Skills</h2>
       </div>
       <div class="skills-container" id="skills-container" data-reveal-container>
-        <!-- Static fallback - JS module rendering overrides this when served via HTTP -->
+        
         <div class="skill-category">
           <span class="skill-category__label">Game Engines</span>
           <div class="skill-boxes">
@@ -230,16 +220,14 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-         CONTACT
-         ═══════════════════════════════════════════════════════════════════ -->
+    
     <section id="contact" class="section" aria-labelledby="contact-title">
       <div class="section-header">
         <span class="section-number" aria-hidden="true">04</span>
         <h2 id="contact-title" class="section-title" data-reveal>Contact</h2>
       </div>
       <div class="contact-links" id="contact-links" role="list" data-reveal-container>
-        <!-- Static fallback - JS module rendering overrides this when served via HTTP -->
+        
         <div class="contact-terminal">
           <div class="contact-terminal__head">
             <span class="contact-terminal__dot contact-terminal__dot--red"></span>
@@ -270,9 +258,7 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-         CHESS CTA
-         ═══════════════════════════════════════════════════════════════════ -->
+    
     <section id="chess" class="chess-section" aria-labelledby="chess-title">
       <div class="chess-card" id="chess-card" data-reveal>
         <div class="chess-card-content">
@@ -290,17 +276,17 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
+  
   <footer class="footer" role="contentinfo">
     <p>Ahmed Ouederni · Tunisia</p>
   </footer>
 
-  <!-- Data Modules -->
+  
   <script type="module" src="data/projects.js"></script>
   <script type="module" src="data/skills.js"></script>
 
 
-  <!-- App JS -->
+  
   <script type="module" src="app.js"></script>
 </body>
 </html>

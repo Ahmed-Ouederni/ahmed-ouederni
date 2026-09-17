@@ -1,5 +1,5 @@
-// Skills data — single source of truth for Skills section
-// Add new skills by pushing to the appropriate category
+
+
 
 export const skillCategories = [
   {
@@ -31,7 +31,7 @@ export const skillCategories = [
   },
 ];
 
-// Icon mapping to Devicon CDN slugs
+
 export const iconMap = {
   godot: 'godot/godot-original.svg',
   unity: 'unity/unity-original.svg',

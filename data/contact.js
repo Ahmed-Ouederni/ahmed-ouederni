@@ -1,4 +1,4 @@
-// Contact data — single source of truth for the terminal-style Contact section
+
 
 export const contactLinks = [
   {
