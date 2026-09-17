@@ -11,7 +11,7 @@ Godot has been his main tool for over 5 years, but he's not tied to one stack. U
 **ClosedAI** : A fully offline AI desktop app that runs Llama, Mistral, DeepSeek, and other LLMs locally. No telemetry, no API keys, no cloud dependency. Built with Electron and Ollama.
 → [ahmed-ouederni.github.io/ClosedAI](https://ahmed-ouederni.github.io/ClosedAI/)
 
-**LaunchPad** : A fast, minimal game launcher for Windows. Keeps every game in one place with a clean interface. Built for speed — no bloat, no ads, no AI gimmicks.
+**LaunchPad** : A fast, minimal game launcher for Windows. Keeps every game in one place with a clean interface. Built for speed, no bloat, no ads, no AI gimmicks.
 → [sologame-dev.itch.io/launchpad](https://sologame-dev.itch.io/launchpad)
 
 **SafeCheck** : A lightweight link safety checker. Paste a URL, get an instant risk read, no clutter.
