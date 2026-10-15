@@ -14,6 +14,20 @@ export const certificates = [
     tags: ['Algorithms', 'Data Structures', 'Problem Solving', 'HackerRank'],
   },
   {
+    id: 'sql-intermediate',
+    title: 'SQL (Intermediate)',
+    issuer: 'HackerRank',
+    issuerIcon: 'ph-database',
+    instructor: 'Harishankaran K (CTO)',
+    date: 'October 2026',
+    description:
+      'Technical skill certification validating intermediate SQL proficiency including complex joins, subqueries, aggregations, window functions, and query optimization.',
+    fileUrl: 'Certificates/sql_intermediate%20certificate.pdf',
+    previewUrl: 'Certificates/sql-intermediate-certificate.png',
+    verifyUrl: 'https://www.hackerrank.com/certificates/23A0000211D9',
+    tags: ['SQL', 'Databases', 'HackerRank', 'Query Optimization'],
+  },
+  {
     id: 'js-intermediate',
     title: 'JavaScript (Intermediate)',
     issuer: 'HackerRank',
@@ -68,5 +82,19 @@ export const certificates = [
     previewUrl: 'Certificates/css-certificate.png',
     verifyUrl: 'https://www.hackerrank.com/certificates/DFD7506BA21F',
     tags: ['CSS', 'HackerRank', 'Web Design'],
+  },
+  {
+    id: 'efset-c2',
+    title: 'EF SET English Certificate (C2 Proficient)',
+    issuer: 'EF Standard English Test',
+    issuerIcon: 'ph-translate',
+    instructor: 'EF SET',
+    date: 'January 2026',
+    description:
+      'Official English language proficiency certification validating 75/100 C2 Proficient level on the CEFR scale, with 79/100 in Reading (C2) and 71/100 in Listening (C1).',
+    fileUrl: 'Certificates/EF%20SET%20Certificate.pdf',
+    previewUrl: 'Certificates/ef-set-certificate.png',
+    verifyUrl: 'https://cert.efset.org/SsfVsz',
+    tags: ['English', 'C2 Proficient', 'CEFR', 'Communication'],
   },
 ];

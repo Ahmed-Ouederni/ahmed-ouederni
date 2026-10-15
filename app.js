@@ -4,164 +4,78 @@ const projects = [
   {
     id: 'closedai',
     title: 'ClosedAI',
-    tagline: 'High-Performance Offline AI Desktop Workspace',
-    category: 'ai-desktop',
-    categoryLabel: 'AI & Systems',
-    badge: 'FLAGSHIP // OFFLINE AI',
-    status: 'ACTIVE RUNTIME',
-    statusType: 'green',
-    processName: 'sys://closed-ai/desktop-runtime',
-    featured: true,
     description:
-      'A fully offline desktop environment engineered to execute local open-weights LLMs (Llama 3, Mistral, DeepSeek) with complete data sovereignty. Built with zero telemetry, zero API keys, and native Ollama IPC orchestration for zero-latency local inference.',
-    highlights: [
-      '100% Air-gapped privacy: zero telemetry, no external cloud dependencies',
-      'Multi-model engine supporting hot-swappable local open-weights LLMs',
-      'Native desktop architecture engineered with Electron and local Ollama RPC'
-    ],
-    terminalSnippet: {
-      cmd: 'closedai --runtime ollama --models "llama3,deepseek,mistral"',
-      output: [
-        '[SYS] Telemetry: 0 KB (strict air-gap mode)',
-        '[IPC] Connected to localhost:11434 (< 2ms)',
-        '[STATUS] Privacy sandbox verified: 100% offline'
-      ]
-    },
-    tags: ['Electron', 'Ollama', 'Local LLMs', 'DeepSeek', 'Llama 3', 'Node.js', 'IPC'],
+      'A fully offline desktop environment engineered to execute local open-weights LLMs with complete data sovereignty, zero telemetry, and native Ollama IPC orchestration for zero-latency local inference.',
+    tags: ['Electron', 'Ollama', 'Local LLMs', 'DeepSeek', 'Node.js'],
     href: 'https://ahmed-ouederni.github.io/ClosedAI/',
     primaryAction: {
-      label: 'Launch ClosedAI',
-      icon: 'ph-arrow-square-out'
+      label: 'Launch',
+      icon: 'ph-arrow-up-right'
     },
     external: true,
   },
   {
     id: 'launchpad',
     title: 'LaunchPad',
-    tagline: 'Lightning-Fast, Distraction-Free Windows Game Launcher',
-    category: 'ai-desktop',
-    categoryLabel: 'AI & Systems',
-    badge: 'DESKTOP APP',
-    status: 'SHIPPED',
-    statusType: 'amber',
-    processName: 'proc://launchpad.exe',
-    featured: false,
     description:
       'A streamlined, zero-bloat game library and launcher for Windows. Aggregates multi-platform executables into a lightning-fast dashboard built for instant process execution without background services, ads, or telemetry.',
-    highlights: [
-      'Sub-100ms startup latency with an ultra-minimal memory footprint',
-      'Executable directory indexing with custom launch parameters',
-      'Zero background telemetry, zero ads, zero bloatware'
-    ],
-    tags: ['C#', 'Windows', 'Game Systems', 'Desktop App', 'Performance'],
+    tags: ['C#', 'Windows', 'Desktop App', 'Performance'],
     href: 'https://sologame-dev.itch.io/launchpad',
     primaryAction: {
       label: 'Get on itch.io',
-      icon: 'ph-arrow-square-out'
+      icon: 'ph-arrow-up-right'
     },
     external: true,
   },
   {
     id: 'chess-bot',
     title: 'Custom Chess Engine & Bot',
-    tagline: 'Algorithmic Minimax Chess Engine with Alpha-Beta Pruning',
-    category: 'game-dev',
-    categoryLabel: 'Game Dev',
-    badge: 'ALGORITHMIC AI',
-    status: 'PLAYABLE IN-BROWSER',
-    statusType: 'green',
-    processName: 'sys://chess-engine',
-    featured: false,
     description:
       'A custom-built chess bot and interactive board engine developed entirely from scratch without external chess libraries. Features board representation, legal move generation, piece-square evaluation heuristics, and recursive minimax search with alpha-beta pruning.',
-    highlights: [
-      'Recursive minimax search algorithm with alpha-beta cutoff pruning',
-      'Positional heuristics and piece-square evaluation matrices',
-      'Zero-dependency pure vanilla JavaScript implementation'
-    ],
-    tags: ['Algorithms', 'Minimax AI', 'Vanilla JS', 'Heuristics', 'Game Theory'],
+    tags: ['JavaScript', 'Minimax AI', 'Alpha-Beta Pruning', 'Game Theory'],
     href: 'chess.html',
     primaryAction: {
-      label: 'Play Bot Live',
-      icon: 'ph-play'
+      label: 'Play Live',
+      icon: 'ph-arrow-up-right'
     },
     external: false,
   },
   {
     id: 'games-itchio',
     title: 'Solo Game Dev Catalog',
-    tagline: 'A Lot of Standalone Games Shipped Solo on itch.io',
-    category: 'game-dev',
-    categoryLabel: 'Game Dev',
-    badge: 'SHIPPED GAMES',
-    status: 'PRODUCTION',
-    statusType: 'green',
-    processName: 'game://itch-games',
-    featured: false,
     description:
-      'A commercial portfolio of a lot of original games developed, designed, and shipped solo across multiple genres on itch.io. Backed by 5+ years of daily Godot engine mastery, custom GDScript architecture, custom shaders, and responsive gameplay physics.',
-    highlights: [
-      'End-to-end solo development: mechanics, level design, sound, and optimization',
-      'Multi-genre catalog covering 2D action, puzzle mechanics, and simulation',
-      'Deep 5+ year Godot Engine & GDScript architecture expertise'
-    ],
-    tags: ['Godot', 'GDScript', 'Unity', 'C#', 'Game Physics', 'itch.io'],
+      'A commercial portfolio of original standalone games developed, designed, and shipped solo across multiple genres on itch.io, backed by 5+ years of daily Godot engine mastery, custom shaders, and responsive gameplay physics.',
+    tags: ['Godot', 'GDScript', 'C#', 'Game Physics', 'itch.io'],
     href: 'https://sologame-dev.itch.io/',
     primaryAction: {
-      label: 'Browse Games on itch.io',
-      icon: 'ph-game-controller'
+      label: 'Browse Games',
+      icon: 'ph-arrow-up-right'
     },
     external: true,
   },
   {
     id: 'safecheck',
     title: 'SafeCheck',
-    tagline: 'Real-Time Link Safety & Threat Heuristic Analyzer',
-    category: 'web-security',
-    categoryLabel: 'Web & Security',
-    badge: 'CYBERSECURITY',
-    status: 'LIVE TOOL',
-    statusType: 'blue',
-    processName: 'net://safecheck-audit',
-    featured: false,
     description:
-      'A lightweight cybersecurity utility designed for rapid URL reconnaissance. Analyzes target links, detects deceptive domains, evaluates redirect hops, and scores potential phishing vectors through an instant terminal-styled interface.',
-    highlights: [
-      'Heuristic risk assessment of URL structures and domain patterns',
-      'Redirect path inspection to uncover hidden target destinations',
-      'Isolated analysis environment designed for fast threat triage'
-    ],
-    tags: ['Cybersecurity', 'Threat Analysis', 'Node.js', 'Web Security', 'Heuristics'],
+      'A lightweight cybersecurity utility designed for rapid URL reconnaissance. Analyzes target links, detects deceptive domains, evaluates redirect hops, and scores potential phishing vectors through an isolated analysis sandbox.',
+    tags: ['Cybersecurity', 'Threat Analysis', 'Node.js', 'Web Security'],
     href: 'SafeCheck/index.html',
     primaryAction: {
-      label: 'Launch SafeCheck',
-      icon: 'ph-shield-check'
+      label: 'Launch',
+      icon: 'ph-arrow-up-right'
     },
     external: false,
   },
   {
     id: 'qrc',
     title: 'QR Code Generator',
-    tagline: 'Instant Client-Side Vector Matrix Synthesizer',
-    category: 'web-security',
-    categoryLabel: 'Web & Security',
-    badge: 'CLIENT-SIDE TOOL',
-    status: 'LIVE TOOL',
-    statusType: 'blue',
-    processName: 'tool://qr-matrix',
-    featured: false,
     description:
-      'A fast, zero-dependency client-side utility that synthesizes vector QR codes directly in browser memory. Supports custom payloads, Wi-Fi credentials, error-correction density configuration, and instant SVG/PNG export.',
-    highlights: [
-      '100% client-side synthesis with zero server round-trips',
-      'Configurable error-correction levels and crisp high-DPI rasterization',
-      'Instant copy-to-clipboard and vector download capabilities'
-    ],
-    tags: ['JavaScript', 'Canvas API', 'SVG', 'Client-Side Tools', 'Utility'],
+      'A fast, zero-dependency client-side utility that synthesizes vector QR codes directly in browser memory. Supports custom payloads, Wi-Fi credentials, error-correction density configuration, and instant SVG export.',
+    tags: ['JavaScript', 'Canvas API', 'SVG', 'Client-Side Tools'],
     href: 'QR-Code-Generator/index.html',
     primaryAction: {
-      label: 'Open QR Generator',
-      icon: 'ph-qr-code'
+      label: 'Open Generator',
+      icon: 'ph-arrow-up-right'
     },
     external: false,
   },
@@ -243,6 +157,20 @@ const certificates = [
     tags: ['Algorithms', 'Data Structures', 'Problem Solving', 'HackerRank'],
   },
   {
+    id: 'sql-intermediate',
+    title: 'SQL (Intermediate)',
+    issuer: 'HackerRank',
+    issuerIcon: 'ph-database',
+    instructor: 'Harishankaran K (CTO)',
+    date: 'October 2026',
+    description:
+      'Technical skill certification validating intermediate SQL proficiency including complex joins, subqueries, aggregations, window functions, and query optimization.',
+    fileUrl: 'Certificates/sql_intermediate%20certificate.pdf',
+    previewUrl: 'Certificates/sql-intermediate-certificate.png',
+    verifyUrl: 'https://www.hackerrank.com/certificates/23A0000211D9',
+    tags: ['SQL', 'Databases', 'HackerRank', 'Query Optimization'],
+  },
+  {
     id: 'js-intermediate',
     title: 'JavaScript (Intermediate)',
     issuer: 'HackerRank',
@@ -298,6 +226,20 @@ const certificates = [
     verifyUrl: 'https://www.hackerrank.com/certificates/DFD7506BA21F',
     tags: ['CSS', 'HackerRank', 'Web Design'],
   },
+  {
+    id: 'efset-c2',
+    title: 'EF SET English Certificate (C2 Proficient)',
+    issuer: 'EF Standard English Test',
+    issuerIcon: 'ph-translate',
+    instructor: 'EF SET',
+    date: 'January 2026',
+    description:
+      'Official English language proficiency certification validating 75/100 C2 Proficient level on the CEFR scale, with 79/100 in Reading (C2) and 71/100 in Listening (C1).',
+    fileUrl: 'Certificates/EF%20SET%20Certificate.pdf',
+    previewUrl: 'Certificates/ef-set-certificate.png',
+    verifyUrl: 'https://cert.efset.org/SsfVsz',
+    tags: ['English', 'C2 Proficient', 'CEFR', 'Communication'],
+  },
 ];
 
 const contactLinks = [
@@ -326,157 +268,29 @@ try {
 
 // Render Projects
 const projectsGrid = document.getElementById('projects-grid');
-const projectsFilterBar = document.getElementById('projects-filter-bar');
 
 function renderProjects() {
   if (!projectsGrid) return;
 
   projectsGrid.innerHTML = projects
     .map((project) => {
-      const tagsHtml = project.tags
-        ? project.tags.map((tag) => `<span class="project-card__tag">${tag}</span>`).join('')
-        : '';
-
-      const highlightsHtml = project.highlights
-        ? `
-          <ul class="project-card__highlights">
-            ${project.highlights
-              .map(
-                (h) => `
-              <li>
-                <span class="project-card__highlight-marker">&gt;</span>
-                <span>${h}</span>
-              </li>
-            `
-              )
-              .join('')}
-          </ul>
-        `
-        : '';
-
       const targetAttr = project.external ? 'target="_blank" rel="noopener noreferrer"' : '';
-      const actionIcon = project.primaryAction && project.primaryAction.icon ? project.primaryAction.icon : 'ph-arrow-square-out';
       const actionLabel = project.primaryAction && project.primaryAction.label ? project.primaryAction.label : 'View Project';
 
-      if (project.featured) {
-        const terminalOut = project.terminalSnippet && project.terminalSnippet.output
-          ? project.terminalSnippet.output.map((out) => `<div class="t-line t-out">${out}</div>`).join('')
-          : '';
-
-        return `
-        <article class="project-card project-card--featured" data-category="${project.category}" role="listitem">
-          <div class="project-card__head">
-            <div class="project-card__window-controls">
-              <span class="project-card__dot project-card__dot--red"></span>
-              <span class="project-card__dot project-card__dot--yellow"></span>
-              <span class="project-card__dot project-card__dot--green"></span>
-              <span class="project-card__process">${project.processName || project.title}</span>
-            </div>
-            <div class="project-card__status project-card__status--${project.statusType || 'green'}">
-              <span class="project-card__status-led"></span>
-              ${project.status}
-            </div>
-          </div>
-          <div class="project-card__featured-layout">
-            <div class="project-card__main">
-              <div class="project-card__meta">
-                <span class="project-card__kicker">
-                  <i class="ph ph-sparkle" aria-hidden="true"></i> ${project.badge}
-                </span>
-              </div>
-              <h3 class="project-card__title">${project.title}</h3>
-              <p class="project-card__tagline">${project.tagline}</p>
-              <p class="project-card__description">${project.description}</p>
-              ${highlightsHtml}
-              <div class="project-card__tags">${tagsHtml}</div>
-              <div class="project-card__actions">
-                <a href="${project.href}" class="cert-btn cert-btn--primary" ${targetAttr}>
-                  <i class="ph ${actionIcon}" aria-hidden="true"></i>
-                  ${actionLabel}
-                </a>
-              </div>
-            </div>
-            <div class="project-card__terminal-box" aria-hidden="true">
-              <div class="project-card__terminal-header">
-                <span class="project-card__terminal-label"><i class="ph ph-terminal"></i> IPC RUNTIME</span>
-                <span class="project-card__terminal-badge">PORT: 11434</span>
-              </div>
-              <div class="project-card__terminal-code">
-                <div class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">${project.terminalSnippet?.cmd || ''}</span></div>
-                ${terminalOut}
-                <div class="t-line" style="margin-top:0.35rem;"><span class="t-prompt">&gt;</span> <span class="t-cursor">_</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
-      `;
-      }
-
       return `
-      <article class="project-card" data-category="${project.category}" role="listitem">
-        <div class="project-card__head">
-          <div class="project-card__window-controls">
-            <span class="project-card__dot project-card__dot--red"></span>
-            <span class="project-card__dot project-card__dot--yellow"></span>
-            <span class="project-card__dot project-card__dot--green"></span>
-            <span class="project-card__process">${project.processName || project.title}</span>
-          </div>
-          <div class="project-card__status project-card__status--${project.statusType || 'green'}">
-            <span class="project-card__status-led"></span>
-            ${project.status}
-          </div>
-        </div>
-        <div class="project-card__body">
-          <div class="project-card__meta">
-            <span class="project-card__kicker">
-              ${project.badge}
-            </span>
-          </div>
-          <h3 class="project-card__title">${project.title}</h3>
-          <p class="project-card__tagline">${project.tagline}</p>
-          <p class="project-card__description">${project.description}</p>
-          ${highlightsHtml}
-          <div class="project-card__tags">${tagsHtml}</div>
-          <div class="project-card__actions">
-            <a href="${project.href}" class="cert-btn cert-btn--primary" ${targetAttr}>
-              <i class="ph ${actionIcon}" aria-hidden="true"></i>
-              ${actionLabel}
+        <article class="project-card" role="listitem">
+          <div class="project-card__header">
+            <h3 class="project-card__title">${project.title}</h3>
+            <a href="${project.href}" class="project-card__link" ${targetAttr}>
+              <span>${actionLabel}</span>
+              <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
             </a>
           </div>
-        </div>
-      </article>
-    `;
+          <p class="project-card__description">${project.description}</p>
+        </article>
+      `;
     })
     .join('');
-
-  setupProjectFilters();
-}
-
-function setupProjectFilters() {
-  if (!projectsFilterBar) return;
-  const buttons = projectsFilterBar.querySelectorAll('.projects-filter-btn');
-
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      const cards = projectsGrid ? projectsGrid.querySelectorAll('.project-card') : [];
-
-      buttons.forEach((b) => {
-        b.classList.remove('is-active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-selected', 'true');
-
-      cards.forEach((card) => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.classList.remove('is-hidden');
-        } else {
-          card.classList.add('is-hidden');
-        }
-      });
-    });
-  });
 }
 
 // Render Skills
@@ -492,15 +306,17 @@ function renderSkills() {
           const iconUrl = iconSlug ? `${iconBaseUrl}/${iconSlug}` : null;
           return `
         <div class="skill-box">
-          ${iconUrl ? `<img class="skill-box__icon" src="${iconUrl}" alt="" loading="lazy" width="28" height="28">` : ''}
+          ${iconUrl ? `<img class="skill-box__icon" src="${iconUrl}" alt="" loading="lazy" width="26" height="26">` : ''}
           <span class="skill-box__name">${skill.name}</span>
         </div>
       `;
         })
         .join('');
 
+      const categorySlug = cat.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
       return `
-      <div class="skill-category">
+      <div class="skill-category skill-category--${categorySlug}">
         <span class="skill-category__label">${cat.category}</span>
         <div class="skill-boxes">${skillsHtml}</div>
       </div>

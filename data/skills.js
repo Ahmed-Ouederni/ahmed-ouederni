@@ -20,16 +20,16 @@ export const skillCategories = [
     ],
   },
   {
-    category: 'Libraries',
-    skills: [
-      { name: 'React', icon: 'react' },
-    ],
-  },
-  {
     category: 'Frameworks & Runtimes',
     skills: [
       { name: 'Electron', icon: 'electron' },
       { name: 'Node.js', icon: 'nodejs' },
+    ],
+  },
+  {
+    category: 'Libraries',
+    skills: [
+      { name: 'React', icon: 'react' },
     ],
   },
   {
