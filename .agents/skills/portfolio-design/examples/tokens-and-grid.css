@@ -1,0 +1,27 @@
+:root {
+  --bg-canvas: #09090b;
+  --bg-surface: #0d0d10;
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(255, 255, 255, 0.22);
+  --text-primary: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --accent-signal: #ff4f00; /* International Engineering Orange */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle architectural dot matrix background */
+.bg-architectural-grid {
+  background-size: 32px 32px;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.07) 1px,
+    transparent 1px
+  );
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ahmed Ouederni, Future Software & Game Developer. 7 games shipped. Building tools, engines, and experiences from Tunisia.">
+  <meta name="description" content="Ahmed Ouederni, Future Software & Game Developer. A lot of games shipped solo. Building tools, engines, and experiences from Tunisia.">
   <meta name="google-site-verification" content="sA0sm3_BkF0M1-zDJ6qoyXJrJfZgBgs-UCvSXlm2wwg" />
   <title>Ahmed Ouederni</title>
   <meta property="og:site_name" content="Ahmed Ouederni">
@@ -12,13 +12,14 @@
   
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.1.0/files/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.1.0/files/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
   
-  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/20-db">
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/20-db" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.cdnfonts.com/css/20-db"></noscript>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/dist/phosphor-icons.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
 
   
   <link rel="stylesheet" href="styles.css">
@@ -62,7 +63,7 @@
                 <div class="desk-monitor__screen">
                   <div class="desk-monitor__line"><span class="dir">~/dev/godot</span></div>
                   <div class="desk-monitor__line" style="margin-top:0.25rem;"><span class="prompt">$</span> <span class="text">ls projects/</span></div>
-                  <div class="desk-monitor__line"><span class="text">closedai/      7-games/     launchpad/</span></div>
+                  <div class="desk-monitor__line"><span class="text">closedai/      games/       launchpad/</span></div>
                   <div class="desk-monitor__line"><span class="text">chess-bot/     godot-5yrs/  web/</span></div>
                   <div class="desk-monitor__line" style="margin-top:0.25rem;">
                     <span class="prompt">$</span> <span class="text">./build --release</span>
@@ -102,7 +103,7 @@
         </p>
         <p class="about-text">
           Not locked into one stack. If something interests me, I <span class="hl">learn it</span> and I <span class="hl">ship it</span>.
-          <a href="https://sologame-dev.itch.io/" target="_blank" rel="noopener" class="link">7 games</a>
+          <a href="https://sologame-dev.itch.io/" target="_blank" rel="noopener" class="link">A lot of games shipped solo</a>
           and counting.
         </p>
       </div>
@@ -114,38 +115,364 @@
         <span class="section-number" aria-hidden="true">02</span>
         <h2 id="projects-title" class="section-title" data-reveal>Projects</h2>
       </div>
+
+      <p class="projects-lead" data-reveal>
+        Production-grade desktop software, local AI systems, custom game architectures, and security utilities built solo from first principles.
+      </p>
+
+      <div class="projects-filter-bar" id="projects-filter-bar" role="tablist" aria-label="Filter projects by category" data-reveal>
+        <button type="button" class="projects-filter-btn is-active" data-filter="all" role="tab" aria-selected="true">
+          <span class="projects-filter-btn__prompt">$</span> all <span class="projects-filter-btn__count">[6]</span>
+        </button>
+        <button type="button" class="projects-filter-btn" data-filter="ai-desktop" role="tab" aria-selected="false">
+          <span class="projects-filter-btn__prompt">$</span> ai-desktop <span class="projects-filter-btn__count">[2]</span>
+        </button>
+        <button type="button" class="projects-filter-btn" data-filter="game-dev" role="tab" aria-selected="false">
+          <span class="projects-filter-btn__prompt">$</span> game-dev <span class="projects-filter-btn__count">[2]</span>
+        </button>
+        <button type="button" class="projects-filter-btn" data-filter="web-security" role="tab" aria-selected="false">
+          <span class="projects-filter-btn__prompt">$</span> web-security <span class="projects-filter-btn__count">[2]</span>
+        </button>
+      </div>
+
       <div class="projects-grid" id="projects-grid" role="list" data-reveal-container>
-        
-        <a href="https://ahmed-ouederni.github.io/ClosedAI/" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
-          <div class="project-card__body">
-            <span class="project-card__title">ClosedAI</span>
-            <span class="project-card__description">A fully offline AI desktop app that runs Llama, Mistral, DeepSeek, and other LLMs locally. Zero telemetry, no API keys, no cloud dependency. Built with Electron and Ollama.</span>
+        <!-- Card 1: ClosedAI (Featured) -->
+        <article class="project-card project-card--featured" data-category="ai-desktop" role="listitem">
+          <div class="project-card__head">
+            <div class="project-card__window-controls">
+              <span class="project-card__dot project-card__dot--red"></span>
+              <span class="project-card__dot project-card__dot--yellow"></span>
+              <span class="project-card__dot project-card__dot--green"></span>
+              <span class="project-card__process">sys://closed-ai/desktop-runtime</span>
+            </div>
+            <div class="project-card__status project-card__status--green">
+              <span class="project-card__status-led"></span>
+              ACTIVE RUNTIME
+            </div>
           </div>
-        </a>
-        <a href="https://sologame-dev.itch.io/launchpad" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
-          <div class="project-card__body">
-            <span class="project-card__title">LaunchPad</span>
-            <span class="project-card__description">A fast, minimal game launcher for Windows. Organizes all your games in one place with a clean, intuitive interface. Built for speed - no bloat, no ads, no AI.</span>
+          <div class="project-card__featured-layout">
+            <div class="project-card__main">
+              <div class="project-card__meta">
+                <span class="project-card__kicker">
+                  <i class="ph ph-sparkle" aria-hidden="true"></i> FLAGSHIP // OFFLINE AI
+                </span>
+              </div>
+              <h3 class="project-card__title">ClosedAI</h3>
+              <p class="project-card__tagline">High-Performance Offline AI Desktop Workspace</p>
+              <p class="project-card__description">
+                A fully offline desktop environment engineered to execute local open-weights LLMs (Llama 3, Mistral, DeepSeek) with complete data sovereignty. Built with zero telemetry, zero API keys, and native Ollama IPC orchestration for zero-latency local inference.
+              </p>
+              <ul class="project-card__highlights">
+                <li>
+                  <span class="project-card__highlight-marker">&gt;</span>
+                  <span>100% Air-gapped privacy: zero telemetry, no external cloud dependencies</span>
+                </li>
+                <li>
+                  <span class="project-card__highlight-marker">&gt;</span>
+                  <span>Multi-model engine supporting hot-swappable local open-weights LLMs</span>
+                </li>
+                <li>
+                  <span class="project-card__highlight-marker">&gt;</span>
+                  <span>Native desktop architecture engineered with Electron and local Ollama RPC</span>
+                </li>
+              </ul>
+              <div class="project-card__tags">
+                <span class="project-card__tag">Electron</span>
+                <span class="project-card__tag">Ollama</span>
+                <span class="project-card__tag">Local LLMs</span>
+                <span class="project-card__tag">DeepSeek</span>
+                <span class="project-card__tag">Llama 3</span>
+                <span class="project-card__tag">Node.js</span>
+                <span class="project-card__tag">IPC</span>
+              </div>
+              <div class="project-card__actions">
+                <a href="https://ahmed-ouederni.github.io/ClosedAI/" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                  <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                  Launch ClosedAI
+                </a>
+              </div>
+            </div>
+            <div class="project-card__terminal-box" aria-hidden="true">
+              <div class="project-card__terminal-header">
+                <span class="project-card__terminal-label"><i class="ph ph-terminal"></i> IPC RUNTIME</span>
+                <span class="project-card__terminal-badge">PORT: 11434</span>
+              </div>
+              <div class="project-card__terminal-code">
+                <div class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">closedai --runtime ollama --models "llama3,deepseek,mistral"</span></div>
+                <div class="t-line t-out">[SYS] Telemetry: 0 KB (strict air-gap mode)</div>
+                <div class="t-line t-out">[IPC] Connected to localhost:11434 (&lt; 2ms)</div>
+                <div class="t-line t-out">[STATUS] Privacy sandbox verified: 100% offline</div>
+                <div class="t-line" style="margin-top:0.35rem;"><span class="t-prompt">&gt;</span> <span class="t-cursor">_</span></div>
+              </div>
+            </div>
           </div>
-        </a>
-        <a href="https://ahmed-ouederni.is-a.dev/SafeCheck" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
-          <div class="project-card__body">
-            <span class="project-card__title">SafeCheck</span>
-            <span class="project-card__description">A lightweight link safety checker - paste any URL and get an instant risk analysis. Built with a clean, no-nonsense interface.</span>
+        </article>
+
+        <!-- Card 2: LaunchPad -->
+        <article class="project-card" data-category="ai-desktop" role="listitem">
+          <div class="project-card__head">
+            <div class="project-card__window-controls">
+              <span class="project-card__dot project-card__dot--red"></span>
+              <span class="project-card__dot project-card__dot--yellow"></span>
+              <span class="project-card__dot project-card__dot--green"></span>
+              <span class="project-card__process">proc://launchpad.exe</span>
+            </div>
+            <div class="project-card__status project-card__status--amber">
+              <span class="project-card__status-led"></span>
+              SHIPPED
+            </div>
           </div>
-        </a>
-        <a href="https://ahmed-ouederni.is-a.dev/QR-Code-Generator" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
           <div class="project-card__body">
-            <span class="project-card__title">QR Code Generator</span>
-            <span class="project-card__description">Transform any link or text into a scannable QR code instantly.</span>
+            <div class="project-card__meta">
+              <span class="project-card__kicker">DESKTOP APP</span>
+            </div>
+            <h3 class="project-card__title">LaunchPad</h3>
+            <p class="project-card__tagline">Lightning-Fast, Distraction-Free Windows Game Launcher</p>
+            <p class="project-card__description">
+              A streamlined, zero-bloat game library and launcher for Windows. Aggregates multi-platform executables into a lightning-fast dashboard built for instant process execution without background services, ads, or telemetry.
+            </p>
+            <ul class="project-card__highlights">
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Sub-100ms startup latency with an ultra-minimal memory footprint</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Executable directory indexing with custom launch parameters</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Zero background telemetry, zero ads, zero bloatware</span>
+              </li>
+            </ul>
+            <div class="project-card__tags">
+              <span class="project-card__tag">C#</span>
+              <span class="project-card__tag">Windows</span>
+              <span class="project-card__tag">Game Systems</span>
+              <span class="project-card__tag">Desktop App</span>
+              <span class="project-card__tag">Performance</span>
+            </div>
+            <div class="project-card__actions">
+              <a href="https://sologame-dev.itch.io/launchpad" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                Get on itch.io
+              </a>
+            </div>
           </div>
-        </a>
-        <a href="https://sologame-dev.itch.io/" class="project-card" target="_blank" rel="noopener noreferrer" role="listitem">
+        </article>
+
+        <!-- Card 3: Chess Bot -->
+        <article class="project-card" data-category="game-dev" role="listitem">
+          <div class="project-card__head">
+            <div class="project-card__window-controls">
+              <span class="project-card__dot project-card__dot--red"></span>
+              <span class="project-card__dot project-card__dot--yellow"></span>
+              <span class="project-card__dot project-card__dot--green"></span>
+              <span class="project-card__process">sys://chess-engine</span>
+            </div>
+            <div class="project-card__status project-card__status--green">
+              <span class="project-card__status-led"></span>
+              PLAYABLE IN-BROWSER
+            </div>
+          </div>
           <div class="project-card__body">
-            <span class="project-card__title">All Games on itch.io</span>
-            <span class="project-card__description">Browse my full catalog of 7 games across multiple genres. Each one built from scratch, solo.</span>
+            <div class="project-card__meta">
+              <span class="project-card__kicker">ALGORITHMIC AI</span>
+            </div>
+            <h3 class="project-card__title">Custom Chess Engine &amp; Bot</h3>
+            <p class="project-card__tagline">Algorithmic Minimax Chess Engine with Alpha-Beta Pruning</p>
+            <p class="project-card__description">
+              A custom-built chess bot and interactive board engine developed entirely from scratch without external chess libraries. Features board representation, legal move generation, piece-square evaluation heuristics, and recursive minimax search with alpha-beta pruning.
+            </p>
+            <ul class="project-card__highlights">
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Recursive minimax search algorithm with alpha-beta cutoff pruning</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Positional heuristics and piece-square evaluation matrices</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Zero-dependency pure vanilla JavaScript implementation</span>
+              </li>
+            </ul>
+            <div class="project-card__tags">
+              <span class="project-card__tag">Algorithms</span>
+              <span class="project-card__tag">Minimax AI</span>
+              <span class="project-card__tag">Vanilla JS</span>
+              <span class="project-card__tag">Heuristics</span>
+              <span class="project-card__tag">Game Theory</span>
+            </div>
+            <div class="project-card__actions">
+              <a href="chess.html" class="cert-btn cert-btn--primary">
+                <i class="ph ph-play" aria-hidden="true"></i>
+                Play Bot Live
+              </a>
+            </div>
           </div>
-        </a>
+        </article>
+
+        <!-- Card 4: Solo Game Dev -->
+        <article class="project-card" data-category="game-dev" role="listitem">
+          <div class="project-card__head">
+            <div class="project-card__window-controls">
+              <span class="project-card__dot project-card__dot--red"></span>
+              <span class="project-card__dot project-card__dot--yellow"></span>
+              <span class="project-card__dot project-card__dot--green"></span>
+              <span class="project-card__process">game://itch-games</span>
+            </div>
+            <div class="project-card__status project-card__status--green">
+              <span class="project-card__status-led"></span>
+              PRODUCTION
+            </div>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__meta">
+              <span class="project-card__kicker">SHIPPED GAMES</span>
+            </div>
+            <h3 class="project-card__title">Solo Game Dev Catalog</h3>
+            <p class="project-card__tagline">A Lot of Standalone Games Shipped Solo on itch.io</p>
+            <p class="project-card__description">
+              A commercial portfolio of a lot of original games developed, designed, and shipped solo across multiple genres on itch.io. Backed by 5+ years of daily Godot engine mastery, custom GDScript architecture, custom shaders, and responsive gameplay physics.
+            </p>
+            <ul class="project-card__highlights">
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>End-to-end solo development: mechanics, level design, sound, and optimization</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Multi-genre catalog covering 2D action, puzzle mechanics, and simulation</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Deep 5+ year Godot Engine &amp; GDScript architecture expertise</span>
+              </li>
+            </ul>
+            <div class="project-card__tags">
+              <span class="project-card__tag">Godot</span>
+              <span class="project-card__tag">GDScript</span>
+              <span class="project-card__tag">Unity</span>
+              <span class="project-card__tag">C#</span>
+              <span class="project-card__tag">Game Physics</span>
+              <span class="project-card__tag">itch.io</span>
+            </div>
+            <div class="project-card__actions">
+              <a href="https://sologame-dev.itch.io/" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-game-controller" aria-hidden="true"></i>
+                Browse Games on itch.io
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: SafeCheck -->
+        <article class="project-card" data-category="web-security" role="listitem">
+          <div class="project-card__head">
+            <div class="project-card__window-controls">
+              <span class="project-card__dot project-card__dot--red"></span>
+              <span class="project-card__dot project-card__dot--yellow"></span>
+              <span class="project-card__dot project-card__dot--green"></span>
+              <span class="project-card__process">net://safecheck-audit</span>
+            </div>
+            <div class="project-card__status project-card__status--blue">
+              <span class="project-card__status-led"></span>
+              LIVE TOOL
+            </div>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__meta">
+              <span class="project-card__kicker">CYBERSECURITY</span>
+            </div>
+            <h3 class="project-card__title">SafeCheck</h3>
+            <p class="project-card__tagline">Real-Time Link Safety &amp; Threat Heuristic Analyzer</p>
+            <p class="project-card__description">
+              A lightweight cybersecurity utility designed for rapid URL reconnaissance. Analyzes target links, detects deceptive domains, evaluates redirect hops, and scores potential phishing vectors through an instant terminal-styled interface.
+            </p>
+            <ul class="project-card__highlights">
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Heuristic risk assessment of URL structures and domain patterns</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Redirect path inspection to uncover hidden target destinations</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Isolated analysis environment designed for fast threat triage</span>
+              </li>
+            </ul>
+            <div class="project-card__tags">
+              <span class="project-card__tag">Cybersecurity</span>
+              <span class="project-card__tag">Threat Analysis</span>
+              <span class="project-card__tag">Node.js</span>
+              <span class="project-card__tag">Web Security</span>
+              <span class="project-card__tag">Heuristics</span>
+            </div>
+            <div class="project-card__actions">
+              <a href="SafeCheck/index.html" class="cert-btn cert-btn--primary">
+                <i class="ph ph-shield-check" aria-hidden="true"></i>
+                Launch SafeCheck
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6: QR Code Generator -->
+        <article class="project-card" data-category="web-security" role="listitem">
+          <div class="project-card__head">
+            <div class="project-card__window-controls">
+              <span class="project-card__dot project-card__dot--red"></span>
+              <span class="project-card__dot project-card__dot--yellow"></span>
+              <span class="project-card__dot project-card__dot--green"></span>
+              <span class="project-card__process">tool://qr-matrix</span>
+            </div>
+            <div class="project-card__status project-card__status--blue">
+              <span class="project-card__status-led"></span>
+              LIVE TOOL
+            </div>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__meta">
+              <span class="project-card__kicker">CLIENT-SIDE TOOL</span>
+            </div>
+            <h3 class="project-card__title">QR Code Generator</h3>
+            <p class="project-card__tagline">Instant Client-Side Vector Matrix Synthesizer</p>
+            <p class="project-card__description">
+              A fast, zero-dependency client-side utility that synthesizes vector QR codes directly in browser memory. Supports custom payloads, Wi-Fi credentials, error-correction density configuration, and instant SVG/PNG export.
+            </p>
+            <ul class="project-card__highlights">
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>100% client-side synthesis with zero server round-trips</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Configurable error-correction levels and crisp high-DPI rasterization</span>
+              </li>
+              <li>
+                <span class="project-card__highlight-marker">&gt;</span>
+                <span>Instant copy-to-clipboard and vector download capabilities</span>
+              </li>
+            </ul>
+            <div class="project-card__tags">
+              <span class="project-card__tag">JavaScript</span>
+              <span class="project-card__tag">Canvas API</span>
+              <span class="project-card__tag">SVG</span>
+              <span class="project-card__tag">Client-Side Tools</span>
+              <span class="project-card__tag">Utility</span>
+            </div>
+            <div class="project-card__actions">
+              <a href="QR-Code-Generator/index.html" class="cert-btn cert-btn--primary">
+                <i class="ph ph-qr-code" aria-hidden="true"></i>
+                Open QR Generator
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -163,6 +490,7 @@
             <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="" width="28" height="28"><span class="skill-box__name">C++</span></div>
             <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="" width="28" height="28"><span class="skill-box__name">C#</span></div>
             <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" width="28" height="28"><span class="skill-box__name">Python</span></div>
+            <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg" alt="" width="28" height="28"><span class="skill-box__name">GDScript</span></div>
             <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" width="28" height="28"><span class="skill-box__name">JavaScript</span></div>
             <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="" width="28" height="28"><span class="skill-box__name">PHP</span></div>
             <div class="skill-box"><img class="skill-box__icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" width="28" height="28"><span class="skill-box__name">HTML</span></div>
@@ -199,9 +527,201 @@
     </section>
 
     
-    <section id="contact" class="section" aria-labelledby="contact-title">
+    <section id="certificates" class="section" aria-labelledby="certificates-title">
       <div class="section-header">
         <span class="section-number" aria-hidden="true">04</span>
+        <h2 id="certificates-title" class="section-title" data-reveal>Certificates</h2>
+      </div>
+      <div class="certificates-grid" id="certificates-grid" role="list" data-reveal-container>
+        <article class="cert-card" role="listitem">
+          <div class="cert-preview-wrap" data-cert-preview="Certificates/problem-solving-intermediate-certificate.png" data-cert-title="Problem Solving (Intermediate)" data-cert-file="Certificates/problem_solving_intermediate%20certificate.pdf" data-cert-verify="https://www.hackerrank.com/certificates/690F3EFD9352" tabindex="0" role="button" aria-label="Preview Problem Solving (Intermediate)">
+            <img src="Certificates/problem-solving-intermediate-certificate.png" alt="Problem Solving (Intermediate) Certificate Preview" class="cert-preview-img" loading="lazy" width="400" height="300">
+            <div class="cert-preview-overlay">
+              <i class="ph ph-magnifying-glass-plus" aria-hidden="true"></i>
+              <span>Preview</span>
+            </div>
+          </div>
+          <div class="cert-content">
+            <div class="cert-header">
+              <div class="cert-meta">
+                <span class="cert-issuer">
+                  <i class="ph ph-code" aria-hidden="true"></i>
+                  HackerRank
+                </span>
+                <span class="cert-date">October 2026</span>
+              </div>
+              <h3 class="cert-title">Problem Solving (Intermediate)</h3>
+              <p class="cert-description">Technical skill certification validating intermediate algorithmic problem-solving abilities, data structures, complexity analysis, and efficient code design.</p>
+            </div>
+            <div class="cert-badges">
+              <span class="cert-badge">Algorithms</span>
+              <span class="cert-badge">Data Structures</span>
+              <span class="cert-badge">Problem Solving</span>
+              <span class="cert-badge">HackerRank</span>
+            </div>
+            <div class="cert-actions">
+              <a href="Certificates/problem_solving_intermediate%20certificate.pdf" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-certificate" aria-hidden="true"></i>
+                View Certificate
+              </a>
+              <a href="https://www.hackerrank.com/certificates/690F3EFD9352" class="cert-btn cert-btn--ghost" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                Verify Credential
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="cert-card" role="listitem">
+          <div class="cert-preview-wrap" data-cert-preview="Certificates/js-intermediate-certificate.png" data-cert-title="JavaScript (Intermediate)" data-cert-file="Certificates/javascript_intermediate%20certificate.pdf" data-cert-verify="https://www.hackerrank.com/certificates/647E006D6678" tabindex="0" role="button" aria-label="Preview JavaScript (Intermediate)">
+            <img src="Certificates/js-intermediate-certificate.png" alt="JavaScript (Intermediate) Certificate Preview" class="cert-preview-img" loading="lazy" width="400" height="300">
+            <div class="cert-preview-overlay">
+              <i class="ph ph-magnifying-glass-plus" aria-hidden="true"></i>
+              <span>Preview</span>
+            </div>
+          </div>
+          <div class="cert-content">
+            <div class="cert-header">
+              <div class="cert-meta">
+                <span class="cert-issuer">
+                  <i class="ph ph-code" aria-hidden="true"></i>
+                  HackerRank
+                </span>
+                <span class="cert-date">October 2026</span>
+              </div>
+              <h3 class="cert-title">JavaScript (Intermediate)</h3>
+              <p class="cert-description">Technical skill certification validating mastery of intermediate JavaScript including asynchronous programming, event-driven architecture, closures, prototypes, and complex data structures.</p>
+            </div>
+            <div class="cert-badges">
+              <span class="cert-badge">JavaScript</span>
+              <span class="cert-badge">HackerRank</span>
+              <span class="cert-badge">Problem Solving</span>
+            </div>
+            <div class="cert-actions">
+              <a href="Certificates/javascript_intermediate%20certificate.pdf" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-certificate" aria-hidden="true"></i>
+                View Certificate
+              </a>
+              <a href="https://www.hackerrank.com/certificates/647E006D6678" class="cert-btn cert-btn--ghost" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                Verify Credential
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="cert-card" role="listitem">
+          <div class="cert-preview-wrap" data-cert-preview="Certificates/ccep-certificate.png" data-cert-title="Certified Cybersecurity Educator Professional (CCEP)" data-cert-file="Certificates/Certified%20Cybersecurity%20Educator%20Professional%20(CCEP).pdf" data-cert-verify="https://courses.redteamleaders.com/exam-completion/affcac7ca5948a88" tabindex="0" role="button" aria-label="Preview Certified Cybersecurity Educator Professional (CCEP)">
+            <img src="Certificates/ccep-certificate.png" alt="Certified Cybersecurity Educator Professional (CCEP) Certificate Preview" class="cert-preview-img" loading="lazy" width="400" height="300">
+            <div class="cert-preview-overlay">
+              <i class="ph ph-magnifying-glass-plus" aria-hidden="true"></i>
+              <span>Preview</span>
+            </div>
+          </div>
+          <div class="cert-content">
+            <div class="cert-header">
+              <div class="cert-meta">
+                <span class="cert-issuer">
+                  <i class="ph ph-shield-check" aria-hidden="true"></i>
+                  Red Team Leaders
+                </span>
+                <span class="cert-date">October 2026</span>
+              </div>
+              <h3 class="cert-title">Certified Cybersecurity Educator Professional (CCEP)</h3>
+              <p class="cert-description">Professional credential verifying proficiency in cybersecurity fundamentals, threat landscape awareness, defensive strategies, and educational security principles.</p>
+            </div>
+            <div class="cert-badges">
+              <span class="cert-badge">Cybersecurity</span>
+              <span class="cert-badge">Red Team Leaders</span>
+              <span class="cert-badge">Threat Defense</span>
+            </div>
+            <div class="cert-actions">
+              <a href="Certificates/Certified%20Cybersecurity%20Educator%20Professional%20(CCEP).pdf" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-certificate" aria-hidden="true"></i>
+                View Certificate
+              </a>
+              <a href="https://courses.redteamleaders.com/exam-completion/affcac7ca5948a88" class="cert-btn cert-btn--ghost" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                Verify Credential
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="cert-card" role="listitem">
+          <div class="cert-preview-wrap" data-cert-preview="Certificates/llm-course-certificate.png" data-cert-title="Fundamentals of LLMs: The LLM Course" data-cert-file="Certificates/LLM%20course.webp" data-cert-verify="" tabindex="0" role="button" aria-label="Preview Fundamentals of LLMs: The LLM Course">
+            <img src="Certificates/llm-course-certificate.png" alt="Fundamentals of LLMs: The LLM Course Certificate Preview" class="cert-preview-img" loading="lazy" width="400" height="300">
+            <div class="cert-preview-overlay">
+              <i class="ph ph-magnifying-glass-plus" aria-hidden="true"></i>
+              <span>Preview</span>
+            </div>
+          </div>
+          <div class="cert-content">
+            <div class="cert-header">
+              <div class="cert-meta">
+                <span class="cert-issuer">
+                  <i class="ph ph-sparkle" aria-hidden="true"></i>
+                  Hugging Face
+                </span>
+                <span class="cert-date">October 2026</span>
+              </div>
+              <h3 class="cert-title">Fundamentals of LLMs: The LLM Course</h3>
+              <p class="cert-description">Certification of achievement for completing Part 1: Fundamentals of Large Language Models, covering transformer architectures, tokenization, pre-training objectives, and modern NLP pipelines.</p>
+            </div>
+            <div class="cert-badges">
+              <span class="cert-badge">AI & LLMs</span>
+              <span class="cert-badge">Hugging Face</span>
+              <span class="cert-badge">Transformers</span>
+            </div>
+            <div class="cert-actions">
+              <a href="Certificates/LLM%20course.webp" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-certificate" aria-hidden="true"></i>
+                View Certificate
+              </a>
+            </div>
+          </div>
+        </article>
+        <article class="cert-card" role="listitem">
+          <div class="cert-preview-wrap" data-cert-preview="Certificates/css-certificate.png" data-cert-title="CSS (Basic)" data-cert-file="Certificates/css%20certificate.pdf" data-cert-verify="https://www.hackerrank.com/certificates/DFD7506BA21F" tabindex="0" role="button" aria-label="Preview CSS (Basic)">
+            <img src="Certificates/css-certificate.png" alt="CSS (Basic) Certificate Preview" class="cert-preview-img" loading="lazy" width="400" height="300">
+            <div class="cert-preview-overlay">
+              <i class="ph ph-magnifying-glass-plus" aria-hidden="true"></i>
+              <span>Preview</span>
+            </div>
+          </div>
+          <div class="cert-content">
+            <div class="cert-header">
+              <div class="cert-meta">
+                <span class="cert-issuer">
+                  <i class="ph ph-code" aria-hidden="true"></i>
+                  HackerRank
+                </span>
+                <span class="cert-date">October 2026</span>
+              </div>
+              <h3 class="cert-title">CSS (Basic)</h3>
+              <p class="cert-description">Technical skill certification demonstrating core competency in CSS styling, layout models, responsiveness, selectors, cascading rules, and visual interface design.</p>
+            </div>
+            <div class="cert-badges">
+              <span class="cert-badge">CSS</span>
+              <span class="cert-badge">HackerRank</span>
+              <span class="cert-badge">Web Design</span>
+            </div>
+            <div class="cert-actions">
+              <a href="Certificates/css%20certificate.pdf" class="cert-btn cert-btn--primary" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-certificate" aria-hidden="true"></i>
+                View Certificate
+              </a>
+              <a href="https://www.hackerrank.com/certificates/DFD7506BA21F" class="cert-btn cert-btn--ghost" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                Verify Credential
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="section-header">
+        <span class="section-number" aria-hidden="true">05</span>
         <h2 id="contact-title" class="section-title" data-reveal>Contact</h2>
       </div>
       <div class="contact-links" id="contact-links" role="list" data-reveal-container>
@@ -255,16 +775,36 @@
   </main>
 
   
+  <div id="cert-modal" class="cert-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+    <div class="cert-modal__dialog">
+      <div class="cert-modal__head">
+        <span id="cert-modal-title" class="cert-modal__title">Certificate Preview</span>
+        <button type="button" class="cert-modal__close" aria-label="Close modal">
+          <i class="ph ph-x" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="cert-modal__body">
+        <img src="" alt="" class="cert-modal__img">
+      </div>
+      <div class="cert-modal__foot">
+        <a href="" class="cert-btn cert-btn--primary cert-modal__link-pdf" target="_blank" rel="noopener noreferrer">
+          <i class="ph ph-file-pdf" aria-hidden="true"></i>
+          Open Full PDF
+        </a>
+        <a href="" class="cert-btn cert-btn--ghost cert-modal__link-verify" target="_blank" rel="noopener noreferrer">
+          <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+          Verify Online
+        </a>
+      </div>
+    </div>
+  </div>
+
+  
   <footer class="footer" role="contentinfo">
     <p>Ahmed Ouederni · Tunisia</p>
   </footer>
 
   
-  <script type="module" src="data/projects.js"></script>
-  <script type="module" src="data/skills.js"></script>
-
-
-  
-  <script type="module" src="app.js"></script>
+  <script defer src="app.js"></script>
 </body>
 </html>

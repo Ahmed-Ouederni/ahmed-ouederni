@@ -20,16 +20,33 @@ Godot has been his main tool for over 5 years, but he's not tied to one stack. U
 **Chess Bot** : A custom chess engine built from scratch, playable right in the browser.
 → [ahmed-ouederni.is-a.dev/chess.html](https://ahmed-ouederni.is-a.dev/chess.html)
 
-**7 Games on itch.io** : My full catalog, spanning multiple genres, each one built solo from the ground up.
+**Games on itch.io** : A lot of games spanning multiple genres, each one built solo from the ground up.
 → [sologame-dev.itch.io](https://sologame-dev.itch.io/)
+
+**QR Code Generator** : A fast, client-side vector QR code synthesizer with customizable error correction and instant SVG export.
+→ [ahmed-ouederni.is-a.dev/QR-Code-Generator](https://ahmed-ouederni.is-a.dev/QR-Code-Generator/)
 
 ---
 
 ## Skills
 
-- **Game engines:** Godot, Unity, C#
-- **Desktop & backend:** Electron, Node.js, Python, PHP, MySQL
-- **Web & frontend:** JavaScript, React, HTML, CSS
+- **Languages:** C++, C#, Python, GDScript, JavaScript, PHP, HTML, CSS
+- **Game engines:** Godot, Unity
+- **Desktop, Web & Backend:** Electron, Node.js, React, MySQL
+
+---
+
+## Certificates
+
+- **Problem Solving (Intermediate)** - HackerRank (October 2026)
+  → [Verification](https://www.hackerrank.com/certificates/690F3EFD9352)
+- **JavaScript (Intermediate)** - HackerRank (October 2026)
+  → [Verification](https://www.hackerrank.com/certificates/647E006D6678)
+- **Certified Cybersecurity Educator Professional (CCEP)** - Red Team Leaders (October 2026)
+  → [Verification](https://courses.redteamleaders.com/exam-completion/affcac7ca5948a88)
+- **Fundamentals of LLMs** - Hugging Face / The LLM Course (October 2026)
+- **CSS (Basic)** - HackerRank (October 2026)
+  → [Verification](https://www.hackerrank.com/certificates/DFD7506BA21F)
 
 ---
 
