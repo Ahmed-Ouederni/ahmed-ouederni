@@ -544,6 +544,217 @@ function setupScrollReveal() {
   });
 }
 
+// Top Navigation & ScrollSpy
+function setupTopNav() {
+  const nav = document.getElementById('top-nav');
+  const navLinks = document.querySelectorAll('.top-nav__link');
+
+  const navSectionIds = ['about', 'projects', 'skills', 'certificates', 'contact'];
+  const sections = navSectionIds
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  if (!nav || sections.length === 0) return;
+
+  let ticking = false;
+
+  function updateNav() {
+    const scrollY = window.scrollY;
+    const winHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+
+    // Header elevation on scroll
+    if (scrollY > 20) {
+      nav.classList.add('is-scrolled');
+    } else {
+      nav.classList.remove('is-scrolled');
+    }
+
+    let activeId = '';
+
+    // 1. Top of page: in Hero area, no section link should be active
+    if (scrollY < 180) {
+      activeId = '';
+    }
+    // 2. Bottom of page: if user reached near page bottom, activate 'contact'
+    else if (winHeight + scrollY >= docHeight - 120) {
+      activeId = 'contact';
+    }
+    // 3. Focal / reading line detection
+    else {
+      // User's natural reading focal line: ~32% down from viewport top
+      const focalY = Math.min(winHeight * 0.32, 260);
+
+      for (let i = 0; i < sections.length; i++) {
+        const sec = sections[i];
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= focalY && rect.bottom > focalY) {
+          activeId = sec.id;
+          break;
+        }
+      }
+
+      // If focal line has passed the bottom of contact (e.g. looking at chess bot or footer)
+      if (!activeId) {
+        const lastSec = sections[sections.length - 1];
+        if (lastSec && lastSec.getBoundingClientRect().bottom <= focalY) {
+          activeId = 'contact';
+        }
+      }
+
+      // Fallback: section with the greatest visible vertical pixel height in viewport
+      if (!activeId) {
+        let maxVisible = 0;
+        const vTop = 60;
+        const vBottom = winHeight;
+        for (let i = 0; i < sections.length; i++) {
+          const sec = sections[i];
+          const rect = sec.getBoundingClientRect();
+          const visible = Math.max(0, Math.min(rect.bottom, vBottom) - Math.max(rect.top, vTop));
+          if (visible > maxVisible) {
+            maxVisible = visible;
+            activeId = sec.id;
+          }
+        }
+      }
+    }
+
+    // Update active class on nav links
+    navLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href === `#${activeId}`) {
+        link.classList.add('is-active');
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.classList.remove('is-active');
+        link.removeAttribute('aria-current');
+      }
+    });
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Initial call
+  updateNav();
+}
+
+// Section Dissolve & Blur on Scroll
+function setupScrollDissolve() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const parts = [
+    document.getElementById('hero'),
+    document.getElementById('about'),
+    document.getElementById('projects'),
+    document.getElementById('skills'),
+    document.getElementById('certificates'),
+    document.getElementById('contact'),
+    document.getElementById('chess'),
+  ].filter(Boolean);
+
+  if (parts.length === 0) return;
+
+  let ticking = false;
+
+  function updateDissolve() {
+    const vHeight = window.innerHeight;
+    const scrollY = window.scrollY;
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      const rect = part.getBoundingClientRect();
+      const isHero = part.id === 'hero';
+
+      // Initial page top: Hero must remain completely crisp
+      if (isHero && scrollY <= 15) {
+        if (part.style.opacity !== '') {
+          part.style.opacity = '';
+          part.style.filter = '';
+          part.style.transform = '';
+          part.style.pointerEvents = '';
+          part.style.visibility = '';
+        }
+        continue;
+      }
+
+      // Calculate exit trigger: start dissolving as section exits the focal zone
+      const sHeight = rect.height || part.offsetHeight;
+      const exitStart = Math.min(vHeight * 0.72, sHeight * 0.92);
+      const exitEnd = -50;
+
+      if (rect.bottom < exitStart) {
+        const rawProgress = Math.max(0, Math.min(1, (exitStart - rect.bottom) / (exitStart - exitEnd)));
+
+        if (rawProgress >= 1) {
+          part.style.opacity = '0';
+          part.style.filter = 'blur(22px) brightness(0.5)';
+          part.style.transform = 'scale(0.92) translateY(-28px)';
+          part.style.pointerEvents = 'none';
+          part.style.visibility = 'hidden';
+        } else {
+          // Ease-out curve ensures blur, opacity fade, and dimming are immediately noticeable
+          const ease = Math.sin(rawProgress * Math.PI / 2);
+          const blur = (ease * 22).toFixed(1);
+          const opacity = (1 - ease * 0.98).toFixed(3);
+          const brightness = (1 - ease * 0.45).toFixed(2);
+          const scale = (1 - ease * 0.08).toFixed(3);
+          const translateY = (-ease * 28).toFixed(1);
+
+          part.style.opacity = opacity;
+          part.style.filter = `blur(${blur}px) brightness(${brightness})`;
+          part.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+          part.style.pointerEvents = opacity < 0.2 ? 'none' : '';
+          part.style.visibility = 'visible';
+        }
+      } else {
+        // In normal viewing zone: restore default
+        if (part.style.opacity !== '') {
+          part.style.opacity = '';
+          part.style.filter = '';
+          part.style.transform = '';
+          part.style.pointerEvents = '';
+          part.style.visibility = '';
+        }
+      }
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateDissolve);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateDissolve);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Initial call
+  updateDissolve();
+}
+
 // Initialization
 function init() {
   renderProjects();
@@ -552,6 +763,8 @@ function init() {
   renderContact();
   setupCertModal();
   setupScrollReveal();
+  setupTopNav();
+  setupScrollDissolve();
 }
 
 if (document.readyState === 'loading') {
