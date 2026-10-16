@@ -27,7 +27,7 @@ export const projects = [
     id: 'chess-bot',
     title: 'Custom Chess Engine & Bot',
     description:
-      'A custom-built chess bot and interactive board engine developed entirely from scratch without external chess libraries. Features board representation, legal move generation, piece-square evaluation heuristics, and recursive minimax search with alpha-beta pruning.',
+      'A custom-built chess bot and interactive board engine developed entirely from scratch without external chess libraries.',
     href: 'chess.html',
     primaryAction: {
       label: 'Play Live',
@@ -37,9 +37,9 @@ export const projects = [
   },
   {
     id: 'games-itchio',
-    title: 'Solo Game Dev Catalog',
+    title: 'Solo Game Dev',
     description:
-      'A commercial portfolio of original standalone games developed, designed, and shipped solo across multiple genres on itch.io, backed by 5+ years of daily Godot engine mastery, custom shaders, and responsive gameplay physics.',
+      'A game development studio I m the creator of original standalone games developed, designed, and shipped solo across multiple genres on itch.io.',
     href: 'https://sologame-dev.itch.io/',
     primaryAction: {
       label: 'Browse Games',
