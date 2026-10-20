@@ -40,6 +40,8 @@ Godot has been his main tool for over 5 years, but he's not tied to one stack. U
 
 - **Problem Solving (Intermediate)** - HackerRank (October 2026)
   → [Verification](https://www.hackerrank.com/certificates/690F3EFD9352)
+- **SQL (Intermediate)** - HackerRank (October 2026)
+  → [Verification](https://www.hackerrank.com/certificates/23A0000211D9)
 - **JavaScript (Intermediate)** - HackerRank (October 2026)
   → [Verification](https://www.hackerrank.com/certificates/647E006D6678)
 - **Certified Cybersecurity Educator Professional (CCEP)** - Red Team Leaders (October 2026)
@@ -47,6 +49,8 @@ Godot has been his main tool for over 5 years, but he's not tied to one stack. U
 - **Fundamentals of LLMs** - Hugging Face / The LLM Course (October 2026)
 - **CSS (Basic)** - HackerRank (October 2026)
   → [Verification](https://www.hackerrank.com/certificates/DFD7506BA21F)
+- **EF SET English Certificate (C2 Proficient)** - EF Standard English Test (January 2026)
+  → [Verification](https://cert.efset.org/SsfVsz)
 
 ---
 
