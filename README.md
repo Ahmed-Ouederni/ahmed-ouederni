@@ -58,4 +58,5 @@ Godot has been his main tool for over 5 years, but he's not tied to one stack. U
 
 - Email: [ahmednasrouederni@gmail.com](mailto:ahmednasrouederni@gmail.com)
 - GitHub: [github.com/Ahmed-Ouederni](https://github.com/Ahmed-Ouederni)
+- LinkedIn: [linkedin.com/in/ahmed-nasr-ouederni-915944414](https://www.linkedin.com/in/ahmed-nasr-ouederni-915944414/)
 - Website: [ahmed-ouederni.is-a.dev](https://ahmed-ouederni.is-a.dev/)

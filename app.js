@@ -244,17 +244,25 @@ const certificates = [
 
 const contactLinks = [
   {
-    label: 'Email',
+    name: 'Email',
     href: 'mailto:ahmednasrouederni@gmail.com',
-    cmd: 'mail',
-    output: 'ahmednasrouederni@gmail.com',
+    icon: 'ph-envelope-simple',
+    iconModifier: 'email',
+    target: '_self',
   },
   {
-    label: 'GitHub',
+    name: 'GitHub',
     href: 'https://github.com/Ahmed-Ouederni',
-    cmd: 'git remote -v',
-    output: 'github.com/Ahmed-Ouederni',
-    prefix: 'origin\t',
+    icon: 'ph-github-logo',
+    iconModifier: 'github',
+    target: '_blank',
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/ahmed-nasr-ouederni-915944414/',
+    icon: 'ph-linkedin-logo',
+    iconModifier: 'linkedin',
+    target: '_blank',
   },
 ];
 
@@ -388,51 +396,26 @@ const contactContainer = document.getElementById('contact-links');
 function renderContact() {
   if (!contactContainer) return;
 
-  const terminalHead = `
-    <div class="contact-terminal__head">
-      <span class="contact-terminal__dot contact-terminal__dot--red"></span>
-      <span class="contact-terminal__dot contact-terminal__dot--yellow"></span>
-      <span class="contact-terminal__dot contact-terminal__dot--green"></span>
-      <span class="contact-terminal__title">contact: bash</span>
-    </div>
-  `;
-
-  const terminalBody = contactLinks
-    .map((link) => {
-      if (link.prefix) {
-        return `
-        <div class="contact-terminal__line">
-          <span class="contact-terminal__prompt">$</span>
-          <span class="contact-terminal__cmd">${link.cmd}</span>
+  contactContainer.innerHTML = contactLinks
+    .map(
+      (link) => `
+    <a href="${link.href}" ${
+        link.target === '_blank' ? 'target="_blank" rel="noopener noreferrer"' : ''
+      } class="contact-card" role="listitem">
+      <div class="contact-card__main">
+        <div class="contact-card__icon-box contact-card__icon-box--${link.iconModifier}" aria-hidden="true">
+          <i class="ph ${link.icon}"></i>
         </div>
-        <div class="contact-terminal__line">
-          <span class="contact-terminal__prefix">${link.prefix}</span>
-          <a href="${link.href}" target="_blank" rel="noopener noreferrer" class="contact-terminal__output">${link.output}</a>
-        </div>
-      `;
-      }
-      return `
-      <div class="contact-terminal__line">
-        <span class="contact-terminal__prompt">$</span>
-        <span class="contact-terminal__cmd">${link.cmd}</span>
-        <a href="${link.href}" class="contact-terminal__output">${link.output}</a>
+        <span class="contact-card__name">${link.name}</span>
       </div>
-    `;
-    })
+      <div class="contact-card__action" aria-hidden="true">
+        <span class="contact-card__cta">Connect</span>
+        <i class="ph ph-arrow-up-right"></i>
+      </div>
+    </a>
+  `
+    )
     .join('');
-
-  contactContainer.innerHTML = `
-    <div class="contact-terminal">
-      ${terminalHead}
-      <div class="contact-terminal__body">
-        ${terminalBody}
-        <div class="contact-terminal__line" style="margin-top:0.5rem;">
-          <span class="contact-terminal__prompt">$</span>
-          <span class="contact-terminal__cursor">_</span>
-        </div>
-      </div>
-    </div>
-  `;
 }
 
 // Lightbox Modal

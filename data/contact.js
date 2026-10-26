@@ -1,17 +1,23 @@
-
-
 export const contactLinks = [
   {
-    label: 'Email',
+    name: 'Email',
     href: 'mailto:ahmednasrouederni@gmail.com',
-    cmd: 'mail',
-    output: 'ahmednasrouederni@gmail.com',
+    icon: 'ph-envelope-simple',
+    iconModifier: 'email',
+    target: '_self',
   },
   {
-    label: 'GitHub',
+    name: 'GitHub',
     href: 'https://github.com/Ahmed-Ouederni',
-    cmd: 'git remote -v',
-    output: 'github.com/Ahmed-Ouederni',
-    prefix: 'origin	',
+    icon: 'ph-github-logo',
+    iconModifier: 'github',
+    target: '_blank',
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/ahmed-nasr-ouederni-915944414/',
+    icon: 'ph-linkedin-logo',
+    iconModifier: 'linkedin',
+    target: '_blank',
   },
 ];
